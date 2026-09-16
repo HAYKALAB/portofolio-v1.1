@@ -1,41 +1,82 @@
-// components/RocketGuide.tsx
+// components/RocketGuide.tsx — roket turun ke bawah + ngetik per section
 "use client";
 
 import { useRef, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-const INTRO_MESSAGES = ["hello bro 👋", "follow me", "let's goo"];
-const OUTRO_MESSAGES = ["Mission accomplished! 🚀", "We have landed safely!", "Enjoy exploring!"];
+const SECTION_ORDER = ["hero", "about", "study", "projects", "certificate", "contact", "future"] as const;
+
+type SectionId = (typeof SECTION_ORDER)[number];
+
+const GUIDE: Record<SectionId, string> = {
+  hero: "Halo, saya Ahmad Al Haykal. Selamat datang di portofolio saya. Silakan scroll ke bawah untuk mengenal saya lebih dekat.",
+  about:
+    "Saya developer dari Bekasi yang membangun produk dari kamar. Saya memperhatikan detail agar hasilnya nyaman digunakan dan terasa matang.",
+  study:
+    "Ini adalah teknologi yang saya gunakan sehari-hari. Silakan arahkan kursor atau ketuk ikon untuk melihat namanya.",
+  projects:
+    "Ini adalah proyek unggulan saya, FUTSALIN — platform booking futsal. Proyek ini masih dalam pengembangan, namun alur utamanya sudah berjalan.",
+  certificate:
+    "Saya telah menyelesaikan 4 sertifikat di Dicoding. Silakan ketuk kartu untuk melihat detail dan verifikasinya.",
+  contact:
+    "Jika ingin terhubung, silakan kirim pesan melalui formulir di bawah atau hubungi saya di ahmadalhaykal94@gmail.com.",
+  future: "Terima kasih telah menjelajahi portofolio ini sampai akhir. Sampai jumpa di proyek selanjutnya.",
+};
+
+const INTRO: string[] = [
+  GUIDE.hero,
+  "Saya akan menemani perjalanan Anda di setiap bagian.",
+  "Silakan scroll perlahan untuk melanjutkan.",
+];
 
 export default function RocketGuide() {
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const rocketSvgRef = useRef<HTMLDivElement>(null);
 
-  const [phase, setPhase] = useState<"ARRIVING" | "TALKING" | "FLYING" | "LANDING" | "LANDED">("ARRIVING");
-  const phaseRef = useRef<"ARRIVING" | "TALKING" | "FLYING" | "LANDING" | "LANDED">("ARRIVING");
+  // section tracking
+  const [active, setActive] = useState<SectionId>("hero");
+  const activeRef = useRef<SectionId>("hero");
 
+  // typing state
+  const [targetText, setTargetText] = useState<string>(INTRO[0]);
+  const [typed, setTyped] = useState<string>("");
+  const [showBubble, setShowBubble] = useState<boolean>(true);
+
+  // intro vs guide phase
   const [introIndex, setIntroIndex] = useState(0);
-  const [outroIndex, setOutroIndex] = useState(0);
-  
-  const [showIntroBubble, setShowIntroBubble] = useState(false);
-  const [showOutroBubble, setShowOutroBubble] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
 
+  // flying state
+  const phaseRef = useRef<"TALKING" | "FLYING" | "LANDING" | "LANDED">("TALKING");
+  const [phase, setPhase] = useState<"TALKING" | "FLYING" | "LANDING" | "LANDED">("TALKING");
   const current = useRef({ x: 0, y: 0 });
   const angle = useRef(0);
   const targetAngle = useRef(0);
   const rafId = useRef<number | null>(null);
-
   const moonTarget = useRef<{ x: number; y: number } | null>(null);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
-  // Set posisi awal di tengah layar
+  // init position (tengah hero) - responsive
   useEffect(() => {
     function initPosition() {
       current.current.x = window.innerWidth / 2 - 24;
-      if (phaseRef.current === "ARRIVING") {
-        current.current.y = window.innerHeight * 0.4;
+      // biar di HP tetap keliatan, selalu update Y saat TALKING atau sebelum FLYING jauh
+      if (phaseRef.current === "TALKING" || current.current.y < window.innerHeight) {
+        current.current.y = window.innerHeight * 0.42;
+      }
+      // paksa moon target hitung ulang saat resize
+      const el = document.getElementById("moon-landing-spot");
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        moonTarget.current = {
+          x: rect.left + window.scrollX + rect.width / 2 - 24,
+          y: rect.top + window.scrollY + rect.height / 2 - 24,
+        };
       }
     }
     initPosition();
@@ -43,7 +84,7 @@ export default function RocketGuide() {
     return () => window.removeEventListener("resize", initPosition);
   }, []);
 
-  // Hitung posisi pasti titik pendaratan bulan (X & Y)
+  // hitung titik mendarat bulan
   useEffect(() => {
     function computeMoonTarget() {
       const el = document.getElementById("moon-landing-spot");
@@ -55,98 +96,150 @@ export default function RocketGuide() {
         };
       }
     }
-
-    const timer = setTimeout(computeMoonTarget, 300);
+    const t = setTimeout(computeMoonTarget, 400);
     window.addEventListener("resize", computeMoonTarget);
     window.addEventListener("load", computeMoonTarget);
-
+    // also recompute on scroll because layout shifts after images
+    let scrollT: number | null = null;
+    function onScroll() {
+      if (scrollT) return;
+      scrollT = window.setTimeout(() => {
+        computeMoonTarget();
+        scrollT = null;
+      }, 300) as unknown as number;
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
-      clearTimeout(timer);
+      clearTimeout(t);
       window.removeEventListener("resize", computeMoonTarget);
       window.removeEventListener("load", computeMoonTarget);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
-  // Delay awal di Hero
+  // observer: deteksi section yang lagi keliatan (mobile-friendly)
   useEffect(() => {
-    const startTalkingTimer = setTimeout(() => {
-      phaseRef.current = "TALKING";
-      setPhase("TALKING");
-    }, 600);
+    if (!mounted) return;
+    let observer: IntersectionObserver | null = null;
 
-    return () => clearTimeout(startTalkingTimer);
-  }, []);
+    function setup() {
+      if (observer) observer.disconnect();
+      const els: Record<string, Element | null> = {};
+      SECTION_ORDER.forEach((id) => {
+        if (id === "hero") els[id] = document.querySelector("section");
+        else els[id] = document.getElementById(id);
+      });
+      const isMobileView = window.innerWidth < 640;
+      observer = new IntersectionObserver(
+        (entries) => {
+          let best: { id: SectionId; ratio: number } | null = null;
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            const raw = (e.target as HTMLElement).id || "hero";
+            const id = (SECTION_ORDER as readonly string[]).includes(raw) ? (raw as SectionId) : "hero";
+            const ratio = e.intersectionRatio;
+            if (!best || ratio > best.ratio) best = { id, ratio };
+          }
+          if (best && best.id !== activeRef.current) {
+            activeRef.current = best.id;
+            setActive(best.id);
+            if (phaseRef.current !== "TALKING") {
+              setTargetText(GUIDE[best.id]);
+              setShowBubble(true);
+            }
+          }
+        },
+        {
+          threshold: isMobileView ? [0.08, 0.15, 0.3] : [0.22, 0.5],
+          rootMargin: isMobileView ? "-5% 0px -30% 0px" : "-12% 0px -42% 0px",
+        }
+      );
+      Object.values(els).forEach((el) => el && observer!.observe(el));
+    }
 
-  // 1. Cycle Dialog Intro
+    setup();
+    // re-setup saat resize (misal desktop -> mobile di devtools) biar gak stuck
+    let resizeT: number | null = null;
+    function onResize() {
+      if (resizeT) return;
+      resizeT = window.setTimeout(() => {
+        setup();
+        resizeT = null;
+      }, 250) as unknown as number;
+    }
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (observer) observer.disconnect();
+    };
+  }, [mounted]);
+
+  // intro sequence — 3 bubble di hero sebelum terbang
   useEffect(() => {
     if (phase !== "TALKING") return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTargetText(INTRO[introIndex]);
+    setShowBubble(true);
 
-    setShowIntroBubble(true);
-
-    const timer = setTimeout(() => {
-      if (introIndex < INTRO_MESSAGES.length - 1) {
-        setShowIntroBubble(false);
+    const t = setTimeout(() => {
+      if (introIndex < INTRO.length - 1) {
+        // blink out lalu ganti
+        setShowBubble(false);
         setTimeout(() => {
           setIntroIndex((i) => i + 1);
-          setShowIntroBubble(true);
-        }, 300);
+        }, 220);
       } else {
-        setShowIntroBubble(false);
-        targetAngle.current = 180; 
-        phaseRef.current = "FLYING";
-        setPhase("FLYING");
+        // selesai intro → terbang
+        setShowBubble(false);
+        setTimeout(() => {
+          phaseRef.current = "FLYING";
+          setPhase("FLYING");
+          setIntroDone(true);
+          // langsung set ke section yang lagi aktif (biasanya hero/about)
+          setTargetText(GUIDE[activeRef.current]);
+          setShowBubble(true);
+          targetAngle.current = 180;
+        }, 300);
       }
-    }, 2000);
+    }, 2200);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(t);
   }, [phase, introIndex]);
 
-  // 2. Cycle Dialog Outro (Setelah Mendarat)
+  // kalau active ganti setelah terbang, targetText sudah di-set di observer
+  // typing effect — ketik per huruf
   useEffect(() => {
-    if (phase !== "LANDED") return;
+    let i = 0;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTyped("");
+    if (!showBubble) return;
+    const text = targetText;
+    const speed = 22; // ms per huruf — kerasa ngetik
+    const id = window.setInterval(() => {
+      i += 1;
+      setTyped(text.slice(0, i));
+      if (i >= text.length) window.clearInterval(id);
+    }, speed);
+    return () => window.clearInterval(id);
+  }, [targetText, showBubble]);
 
-    const delayTimer = setTimeout(() => {
-      setShowOutroBubble(true);
-
-      const outroInterval = setInterval(() => {
-        setOutroIndex((prev) => {
-          if (prev < OUTRO_MESSAGES.length - 1) {
-            return prev + 1;
-          } else {
-            clearInterval(outroInterval);
-            setTimeout(() => setShowOutroBubble(false), 2500);
-            return prev;
-          }
-        });
-      }, 2200);
-
-      return () => clearInterval(outroInterval);
-    }, 300);
-
-    return () => clearTimeout(delayTimer);
-  }, [phase]);
-
-  // Loop Utama Animasi
+  // loop animasi terbang
   useEffect(() => {
     function animate() {
-      // FASE TERBANG
       if (phaseRef.current === "FLYING") {
-        const SPEED = 1.5;
+        const SPEED = 1.55;
 
         if (moonTarget.current) {
           const dx = moonTarget.current.x - current.current.x;
           const dy = moonTarget.current.y - current.current.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          // Geser posisi X & Y menuju target bulan
+          const dist = Math.hypot(dx, dy);
           if (dist > SPEED) {
             current.current.x += (dx / dist) * SPEED;
             current.current.y += (dy / dist) * SPEED;
           } else {
-            // TERKUNCI PERSIS DI TITIK TARGET (TIDAK AKAN GESER LAGI)
             current.current.x = moonTarget.current.x;
             current.current.y = moonTarget.current.y;
-            targetAngle.current = 360; // Muter searah jarum jam untuk mendarat tegak
+            targetAngle.current = 360;
             phaseRef.current = "LANDING";
             setPhase("LANDING");
           }
@@ -154,46 +247,37 @@ export default function RocketGuide() {
           current.current.y += SPEED;
         }
 
-        // Putar badan ke 180 deg saat meluncur turun
         if (angle.current < 180) {
           angle.current += (180 - angle.current) * 0.08;
           if (180 - angle.current < 0.5) angle.current = 180;
         }
-      } 
-      // FASE PENDARATAN (POSISI X & Y DIAM KUNCI TERKUNCI)
-      else if (phaseRef.current === "LANDING") {
+      } else if (phaseRef.current === "LANDING") {
         const diff = targetAngle.current - angle.current;
-
-        if (Math.abs(diff) > 0.5) {
-          angle.current += diff * 0.08;
-        } else {
-          angle.current = 0; // Kunci sudut tegak murni
+        if (Math.abs(diff) > 0.5) angle.current += diff * 0.08;
+        else {
+          angle.current = 0;
           phaseRef.current = "LANDED";
           setPhase("LANDED");
+          // pas mendarat, paksa bubble future
+          setTargetText(GUIDE.future);
+          setShowBubble(true);
         }
       }
 
-      // Apply transform ke DOM
       if (containerRef.current) {
         containerRef.current.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0)`;
       }
-
       if (rocketSvgRef.current) {
         rocketSvgRef.current.style.transform = `rotate(${angle.current}deg)`;
       }
 
-      const maxScrollHeight = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight
-      );
-
-      if (current.current.y < maxScrollHeight + 300) {
+      const maxH = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if (current.current.y < maxH + 400) {
         rafId.current = requestAnimationFrame(animate);
       }
     }
 
     rafId.current = requestAnimationFrame(animate);
-
     return () => {
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
@@ -201,87 +285,81 @@ export default function RocketGuide() {
 
   if (!mounted) return null;
 
+  const landed = phase === "LANDED";
+
   const content = (
     <div
       ref={containerRef}
       className="absolute top-0 left-0 z-40 flex flex-col items-center pointer-events-none"
       style={{ willChange: "transform" }}
     >
-      {/* Container Balon Dialog Dibuat Absolute Supaya Tidak Mendorong Posisi SVG Roket */}
-      <div className="absolute bottom-full mb-2 flex flex-col items-center pointer-events-auto">
-        {phase === "TALKING" && (
-          <div
-            className="relative px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs whitespace-nowrap transition-all duration-300"
-            style={{
-              opacity: showIntroBubble ? 1 : 0,
-              transform: showIntroBubble ? "translateY(0)" : "translateY(4px)",
-            }}
-          >
-            {INTRO_MESSAGES[introIndex]}
-            <div className="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-slate-900 border-r border-b border-slate-700 rotate-45 -mt-1" />
+      {/* bubble ngetik — nempel di roket */}
+      <div className="absolute bottom-full mb-2 flex w-[300px] max-w-[90vw] sm:max-w-[86vw] flex-col items-center pointer-events-auto">
+        <div
+          className="relative w-full rounded-[14px] border bg-[#0B1220]/95 backdrop-blur-xl px-3.5 py-2.5 shadow-[0_12px_32px_rgba(0,0,0,0.45)] transition-all duration-300"
+          style={{
+            opacity: showBubble ? 1 : 0,
+            transform: showBubble ? "translateY(0)" : "translateY(6px)",
+            borderColor: landed ? "rgba(56,189,248,0.35)" : "rgba(255,255,255,0.12)",
+          }}
+        >
+          {/* header kecil */}
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[10px] font-mono tracking-[0.16em] text-sky-300">
+              {introDone ? active.toUpperCase() : `INTRO ${introIndex + 1}/3`}
+            </span>
+            <span className="text-[10px] font-mono text-slate-500">
+              {SECTION_ORDER.indexOf(active) + 1}/{SECTION_ORDER.length}
+            </span>
           </div>
-        )}
 
-        {phase === "LANDED" && (
+          <p className="mt-1 text-[12.5px] leading-relaxed text-slate-100 min-h-[2.2em]">
+            {typed}
+            <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-sky-300 animate-pulse" />
+          </p>
+
+          {/* tail */}
           <div
-            className="relative px-3 py-1.5 rounded-lg bg-indigo-950 border border-indigo-500/50 text-indigo-100 text-xs font-medium whitespace-nowrap transition-all duration-500 shadow-lg shadow-indigo-500/10"
-            style={{
-              opacity: showOutroBubble ? 1 : 0,
-              transform: showOutroBubble ? "translateY(0)" : "translateY(6px)",
-            }}
-          >
-            {OUTRO_MESSAGES[outroIndex]}
-            <div className="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-indigo-950 border-r border-b border-indigo-500/50 rotate-45 -mt-1" />
-          </div>
+            className="absolute left-1/2 top-full h-2.5 w-2.5 -translate-x-1/2 rotate-45 -mt-1 border-r border-b bg-[#0B1220]"
+            style={{ borderColor: landed ? "rgba(56,189,248,0.35)" : "rgba(255,255,255,0.12)" }}
+          />
+        </div>
+
+        {/* tap hint kecil — desktop only */}
+        {introDone && !landed && (
+          <span className="mt-1 hidden sm:block text-[10px] font-mono tracking-widest text-slate-500/80">
+            SCROLL BIAR AKU GANTI CERITA
+          </span>
         )}
       </div>
 
-      {/* SVG Roket */}
-      <div 
-        ref={rocketSvgRef} 
-        className={`w-20 h-20 flex items-center justify-center transition-transform ${
-          phase === "LANDED" ? "motion-safe:animate-[landBounce_0.5s_ease-out]" : ""
-        }`}
+      {/* roket */}
+      <div
+        ref={rocketSvgRef}
+        className={`flex h-16 w-16 items-center justify-center ${landed ? "motion-safe:animate-[landBounce_0.5s_ease-out]" : ""}`}
         style={{ willChange: "transform" }}
       >
-        <svg viewBox="0 0 48 48" className="w-12 h-12 overflow-visible">
+        <svg viewBox="0 0 48 48" className="h-12 w-12 overflow-visible">
           <ellipse
             cx="24"
             cy="42"
             rx="4"
             ry="6"
             fill="#60A5FA"
-            className={
-              phase === "LANDED" ? "" : "motion-safe:animate-[flicker_0.15s_ease-in-out_infinite]"
-            }
-            opacity={phase === "LANDED" ? 0 : 0.6}
+            opacity={landed ? 0 : 0.7}
+            className={landed ? "" : "motion-safe:animate-[flicker_0.15s_ease-in-out_infinite]"}
           />
-          <path
-            d="M24 2C30 10 32 20 32 28C32 32 28 35 24 36C20 35 16 32 16 28C16 20 18 10 24 2Z"
-            fill="#E2E8F0"
-          />
+          <path d="M24 2C30 10 32 20 32 28C32 32 28 35 24 36C20 35 16 32 16 28C16 20 18 10 24 2Z" fill="#E2E8F0" />
           <circle cx="24" cy="18" r="4" fill="#3B82F6" />
           <path d="M16 26L8 34L16 32Z" fill="#3B82F6" />
           <path d="M32 26L40 34L32 32Z" fill="#3B82F6" />
         </svg>
       </div>
 
-      {/* Indikator Panah Bawah */}
+      {/* panah bawah pas intro */}
       {phase === "TALKING" && (
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          className="mt-1 motion-safe:animate-[bounceDown_1.4s_ease-in-out_infinite]"
-        >
-          <path
-            d="M2 5L8 11L14 5"
-            stroke="#60A5FA"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-1 motion-safe:animate-[bounceDown_1.4s_ease-in-out_infinite]">
+          <path d="M2 5L8 11L14 5" stroke="#60A5FA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )}
     </div>

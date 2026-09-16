@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar";
 import InteractiveRocket from "@/components/angkasa/rocket";
 import AboutSection from "@/components/AboutSection";
 import StudySection from "@/components/StudySection";
+import ProjectsSection from "@/components/ProjectsSection";
 import CertificateSection from "@/components/certifikat";
 import ContactSection from "@/components/contact";
 import FutureSection from "@/components/footere";
@@ -10,12 +11,12 @@ import FutureSection from "@/components/footere";
 export default function Home() {
   return (
     <>
-   
       <HeroSection />
       <Navbar />
       <InteractiveRocket />
       <AboutSection />
-      <StudySection/>
+      <StudySection />
+      <ProjectsSection />
       <CertificateSection />
       <ContactSection />
       <FutureSection />

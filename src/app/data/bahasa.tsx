@@ -5,67 +5,353 @@ export const languages = [
   { code: "su", name: "Sunda", flag: "🇮🇩" },
   { code: "min", name: "Minang", flag: "🇮🇩" },
   { code: "ban", name: "Bali", flag: "🇮🇩" },
-];
+] as const;
+
+export type LanguageCode = (typeof languages)[number]["code"];
 
 export const content = {
   en: {
-    title: "welcome to my portofolio website",
-    runningText: [
-      "Hi, I'm Haykal.",
-      "A developer who loves turning ideas into something real.",
-      "Maybe by exploring what I build, you'll get to know me a little better."
-    ],
-    contactBtn: "Contact me",
-    seeBtn: "see"
+    nav: {
+      about: "About",
+      study: "Skills",
+      projects: "Projects",
+      certificate: "Certificates",
+      contact: "Contact",
+      talkBtn: "Contact me",
+    },
+    future: {
+      tag: "What's next",
+      title: "See you on the next mission",
+      rights: "All rights reserved.",
+    },
+    study: {
+      tag: "Skills & Tools",
+      title: "Technologies I work with",
+      description: "Each skill is shown as a planet — hover or tap an icon to see its name. All of these are part of my daily stack.",
+    },
+    about: {
+      tag: "About me",
+      title: "Developer from Indonesia,\nbuilding for everyone.",
+      description:
+        "I'm Ahmad Al Haykal, a developer from Bekasi who builds end-to-end products. I pay attention to details so the result feels polished and comfortable to use. I build full-stack with React, Next.js, and Node.js from scratch to production.",
+    },
+    certificate: {
+      tag: "Certificates",
+      title: "Certificates",
+      description: "A collection of courses I have completed. Tap a card to view details and verify its authenticity.",
+      previewText: "Preview",
+      verifyText: "Verify",
+    },
+    hero: {
+      title: "Hello, I'm Ahmad Al Haykal",
+      runningText: [
+        "Hello, I'm Ahmad Al Haykal.",
+        "RPL student learning self-taught toward Full-stack Developer.",
+        "Explore below to get to know me better.",
+      ],
+      contactBtn: "Contact me",
+      seeBtn: "Explore",
+    },
+    contact: {
+      tag: "Contact",
+      title: "Let's connect",
+      description: "Have an idea, a collaboration, or just want to say hello? Send me a message through the form below.",
+      nameLabel: "Your name",
+      namePlaceholder: "Your name",
+      emailLabel: "Email",
+      emailPlaceholder: "your@email.com",
+      messageLabel: "Message",
+      messagePlaceholder: "Write your message here...",
+      sendBtn: "Send message",
+      sendingBtn: "Sending...",
+      successMessage: "Message sent. I'll reply soon.",
+      errorMessage: "Failed to send. Please try again.",
+    },
   },
   id: {
-    title: "selamat datang di website portofolio saya",
-    runningText: [
-      "Halo, saya Haykal.",
-      "Seorang developer yang suka mengubah ide menjadi kenyataan.",
-      "Mungkin dengan melihat apa yang saya buat, kamu bisa kenal saya lebih dekat."
-    ],
-    contactBtn: "Hubungi saya",
-    seeBtn: "lihat"
+    nav: {
+      about: "Tentang",
+      study: "Keahlian",
+      projects: "Proyek",
+      certificate: "Sertifikat",
+      contact: "Kontak",
+      talkBtn: "Hubungi Saya",
+    },
+    future: {
+      tag: "Selanjutnya",
+      title: "Sampai jumpa di misi selanjutnya",
+      rights: "All rights reserved.",
+    },
+    study: {
+      tag: "Keahlian",
+      title: "Teknologi yang saya gunakan",
+      description: "Setiap keahlian ditampilkan sebagai planet. Arahkan kursor atau ketuk ikon untuk melihat namanya.",
+    },
+    about: {
+      tag: "Tentang Saya",
+      title: "Developer dari Bekasi\nuntuk siapa saja.",
+      description:
+        "Saya Ahmad Al Haykal, siswa Rekayasa Perangkat Lunak yang belajar otodidak menuju Full-stack Developer. Saat ini saya fokus mendalami Frontend terlebih dahulu, sambil terus mengasah Backend yang sudah pernah saya coba.",
+    },
+    hero: {
+      title: "Halo, saya Ahmad Al Haykal",
+      runningText: [
+        "Halo, saya Ahmad Al Haykal.",
+        "Siswa RPL yang belajar otodidak menuju Full-stack Developer.",
+        "Silakan jelajahi untuk mengenal saya lebih dekat.",
+      ],
+      contactBtn: "Hubungi Saya",
+      seeBtn: "Jelajahi",
+    },
+    certificate: {
+      tag: "Sertifikat",
+      title: "Sertifikat",
+      description: "Kumpulan pembelajaran yang telah saya selesaikan. Ketuk kartu untuk melihat detail dan memverifikasi keasliannya.",
+      previewText: "Lihat",
+      verifyText: "Verifikasi",
+    },
+    contact: {
+      tag: "Kontak",
+      title: "Mari terhubung",
+      description: "Punya ide, ingin berkolaborasi, atau sekadar menyapa? Kirimkan pesan melalui formulir di bawah ini.",
+      nameLabel: "Nama Anda",
+      namePlaceholder: "Nama Anda",
+      emailLabel: "Email",
+      emailPlaceholder: "email@anda.com",
+      messageLabel: "Pesan",
+      messagePlaceholder: "Tulis pesan Anda di sini...",
+      sendBtn: "Kirim Pesan",
+      sendingBtn: "Mengirim...",
+      successMessage: "Pesan terkirim. Saya akan segera membalas.",
+      errorMessage: "Gagal mengirim. Silakan coba lagi.",
+    },
   },
   jv: {
-    title: "sugeng rawuh wonten ing website portofolio kula",
-    runningText: [
-      "Sugeng rawuh, kula Haykal.",
-      "Setunggal developer ingkang seneng ngowahi ide dadi kasunyatan.",
-      "Saka ndeleng apa sing kula gawe, sampeyan bisa luwih kenal karo kula."
-    ],
-    contactBtn: "Matur kula",
-    seeBtn: "pirsani"
+    nav: {
+      about: "Babagan",
+      study: "Keahlian",
+      projects: "Proyek",
+      certificate: "Sertifikat",
+      contact: "Kontak",
+      talkBtn: "Hubungi Kula",
+    },
+    future: {
+      tag: "Salajengipun",
+      title: "Mugi panggih wonten ing misi salajengipun",
+      rights: "Hak cipta dilindungi.",
+    },
+    study: {
+      tag: "Keahlian",
+      title: "Teknologi ingkang kula ginakaken",
+      description: "Saben keahlian dipun tampilaken minangka planet. Arahkan kursor utawi ketuk ikon kangge ningali naminipun.",
+    },
+    about: {
+      tag: "Babagan Kula",
+      title: "Developer saking Bekasi\nkangge sinten kemawon.",
+      description: "Kula Ahmad Al Haykal, developer saking Bekasi ingkang mbangun produk wiwit awal ngantos siap dipun ginakaken.",
+    },
+    hero: {
+      title: "Halo, kula Ahmad Al Haykal",
+      runningText: [
+        "Halo, kula Ahmad Al Haykal.",
+        "Kula ngowahi ide dados produk digital.",
+        "Mangga dipun jelajahi kangge tepang langkung caket.",
+      ],
+      contactBtn: "Hubungi Kula",
+      seeBtn: "Jelajahi",
+    },
+    certificate: {
+      tag: "Sertifikat",
+      title: "Sertifikat",
+      description: "Kumpulan pasinaon ingkang sampun kula rampungaken.",
+      previewText: "Pirsani",
+      verifyText: "Verifikasi",
+    },
+    contact: {
+      tag: "Kontak",
+      title: "Mangga sesambungan",
+      description: "Gadhah ide utawi kersa kolaborasi? Kirim pesen lumantar formulir ing ngandhap.",
+      nameLabel: "Nama Panjenengan",
+      namePlaceholder: "Nama Panjenengan",
+      emailLabel: "Email",
+      emailPlaceholder: "email@anda.com",
+      messageLabel: "Pesan",
+      messagePlaceholder: "Tulis pesen Panjenengan...",
+      sendBtn: "Kirim",
+      sendingBtn: "Ngirim...",
+      successMessage: "Pesen terkirim.",
+      errorMessage: "Gagal ngirim. Cobi malih.",
+    },
   },
   su: {
-    title: "wilujeng sumping di website portofolio simkuring",
-    runningText: [
-      "Sampurasun, simkuring Haykal.",
-      "Hiji developer nu resep ngarobah ide jadi nyata.",
-      "Ku cara ningali naon nu ku simkuring dijieun, anjeun tiasa langkung kenal ka simkuring."
-    ],
-    contactBtn: "Kontak simkuring",
-    seeBtn: "tingali"
+    nav: {
+      about: "Ngeunaan",
+      study: "Kaahlian",
+      projects: "Proyek",
+      certificate: "Sertifikat",
+      contact: "Kontak",
+      talkBtn: "Hubungi Abdi",
+    },
+    future: {
+      tag: "Salajengna",
+      title: "Tepang deui dina misi salajengna",
+      rights: "Sadaya hak ditangtayungan.",
+    },
+    study: {
+      tag: "Kaahlian",
+      title: "Teknologi nu dianggo",
+      description: "Unggal kaahlian ditampilkeun salaku planet. Arahkeun kursor atawa ketuk ikon pikeun ningali namina.",
+    },
+    about: {
+      tag: "Ngeunaan Abdi",
+      title: "Developer ti Bekasi\nkanggo saha wae.",
+      description: "Abdi Ahmad Al Haykal, developer ti Bekasi nu ngawangun produk ti awal dugi ka siap dianggo.",
+    },
+    hero: {
+      title: "Halo, abdi Ahmad Al Haykal",
+      runningText: [
+        "Halo, abdi Ahmad Al Haykal.",
+        "Abdi ngarobah ide janten produk digital.",
+        "Mangga jelajahi kanggo langkung wanoh.",
+      ],
+      contactBtn: "Hubungi Abdi",
+      seeBtn: "Jelajahi",
+    },
+    certificate: {
+      tag: "Sertifikat",
+      title: "Sertifikat",
+      description: "Kumpulan diajar nu parantos direngsekeun.",
+      previewText: "Tingali",
+      verifyText: "Verifikasi",
+    },
+    contact: {
+      tag: "Kontak",
+      title: "Hayu terhubung",
+      description: "Gaduh ide atanapi hoyong kolaborasi? Kirim pesen ngalangkungan formulir di handap.",
+      nameLabel: "Nami Anjeun",
+      namePlaceholder: "Nami Anjeun",
+      emailLabel: "Email",
+      emailPlaceholder: "email@anda.com",
+      messageLabel: "Pesan",
+      messagePlaceholder: "Tulis pesen Anjeun...",
+      sendBtn: "Kirim",
+      sendingBtn: "Ngirim...",
+      successMessage: "Pesen terkirim.",
+      errorMessage: "Gagal ngirim. Coba deui.",
+    },
   },
   min: {
-    title: "salamik kasampai di website portofolio ambo",
-    runningText: [
-      "Oi, ambo Haykal.",
-      "Saurang developer nan suko maubah ide jadi kanyataan.",
-      "Mungkin jo malihek apo nan ambo buek, sanak bisa kenal ambo labiah jauah."
-    ],
-    contactBtn: "Hubungi ambo",
-    seeBtn: "caliak"
+    nav: {
+      about: "Tentang",
+      study: "Kaahlian",
+      projects: "Proyek",
+      certificate: "Sertifikat",
+      contact: "Kontak",
+      talkBtn: "Hubungi Ambo",
+    },
+    future: {
+      tag: "Salajengnyo",
+      title: "Sampai tamiang di misi barikuiknyo",
+      rights: "Hak cipta dilindungi.",
+    },
+    study: {
+      tag: "Kaahlian",
+      title: "Teknologi nan ambo pakai",
+      description: "Tiap kaahlian ditampilkan sabagai planet. Arahkan kursor atau ketuk ikon untuak mancaliak namonyo.",
+    },
+    about: {
+      tag: "Tentang Ambo",
+      title: "Developer dari Bekasi\nuntuak siapo sajo.",
+      description: "Ambo Ahmad Al Haykal, developer dari Bekasi nan mambangun produk dari awal sampai siap dipakai.",
+    },
+    hero: {
+      title: "Halo, ambo Ahmad Al Haykal",
+      runningText: [
+        "Halo, ambo Ahmad Al Haykal.",
+        "Ambo maubah ide manjadi produk digital.",
+        "Silakan jelajahi untuak labiah mangenal ambo.",
+      ],
+      contactBtn: "Hubungi Ambo",
+      seeBtn: "Jelajahi",
+    },
+    certificate: {
+      tag: "Sertifikat",
+      title: "Sertifikat",
+      description: "Kumpulan pembelajaran nan alah ambo salasaiakan.",
+      previewText: "Lihat",
+      verifyText: "Verifikasi",
+    },
+    contact: {
+      tag: "Kontak",
+      title: "Mari tahubung",
+      description: "Punyo ide atau handak kolaborasi? Kirim pesan malalui formulir di bawah.",
+      nameLabel: "Namo Anda",
+      namePlaceholder: "Namo Anda",
+      emailLabel: "Email",
+      emailPlaceholder: "email@anda.com",
+      messageLabel: "Pesan",
+      messagePlaceholder: "Tulis pesan Anda...",
+      sendBtn: "Kirim",
+      sendingBtn: "Mangirim...",
+      successMessage: "Pesan takirim.",
+      errorMessage: "Gagal mangirim. Coba lai.",
+    },
   },
   ban: {
-    title: "om swastiastu ring website portofolio tiang",
-    runningText: [
-      "Om Swastiastu, tiang Haykal.",
-      "Developer sane seneng ngewangun ide dados kenyataan.",
-      "Malarapan antuk nyingakin napi sane ngawe tiang, iraga dados saling kenal."
-    ],
-    contactBtn: "Kontak tiang",
-    seeBtn: "cingak"
-  }
+    nav: {
+      about: "Indik",
+      study: "Keahlian",
+      projects: "Proyek",
+      certificate: "Sertifikat",
+      contact: "Kontak",
+      talkBtn: "Hubungi Titiang",
+    },
+    future: {
+      tag: "Salanturnya",
+      title: "Kantos matemu ring misi salanturnyane",
+      rights: "Hak cipta katutup.",
+    },
+    about: {
+      tag: "Indik Titiang",
+      title: "Developer saking Bekasi\nanggen sapasira ja.",
+      description: "Titiang Ahmad Al Haykal, developer saking Bekasi sane ngaryanin produk saking awal ngantos siap kaanggen.",
+    },
+    study: {
+      tag: "Keahlian",
+      title: "Teknologi sane kaanggen",
+      description: "Sabilang keahlian kacingak pinaka planet. Arahkan kursor utawi ketuk ikon mangda kauningin wastannyane.",
+    },
+    hero: {
+      title: "Om Swastiastu, titiang Ahmad Al Haykal",
+      runningText: [
+        "Om Swastiastu, titiang Ahmad Al Haykal.",
+        "Titiang ngubah ide dados produk digital.",
+        "Silakan jelajahi mangda sayan uning titiang.",
+      ],
+      contactBtn: "Hubungi Titiang",
+      seeBtn: "Jelajahi",
+    },
+    certificate: {
+      tag: "Sertifikat",
+      title: "Sertifikat",
+      description: "Pupulan paplajahan sane sampun puput.",
+      previewText: "Cingak",
+      verifyText: "Verifikasi",
+    },
+    contact: {
+      tag: "Kontak",
+      title: "Ngiring masambung",
+      description: "Wenten ide utawi meled kolaborasi? Kirim pesan malarapan formulir ring sor.",
+      nameLabel: "Parab Ragane",
+      namePlaceholder: "Parab Ragane",
+      emailLabel: "Email",
+      emailPlaceholder: "email@anda.com",
+      messageLabel: "Pesan",
+      messagePlaceholder: "Tulis pesan Ragane...",
+      sendBtn: "Kirim",
+      sendingBtn: "Ngirim...",
+      successMessage: "Pesan terkirim.",
+      errorMessage: "Gagal ngirim. Coba malih.",
+    },
+  },
 };

@@ -1,7 +1,7 @@
 
 export default function Blackhole() {
   return (
-    <div className="absolute -bottom-32 -right-32 w-[26rem] h-[26rem] pointer-events-none">
+    <div className="absolute -bottom-16 -right-16 sm:-bottom-24 sm:-right-24 lg:-bottom-32 lg:-right-32 w-[16rem] h-[16rem] sm:w-[22rem] sm:h-[22rem] lg:w-[26rem] lg:h-[26rem] pointer-events-none">
       <div
         className="absolute inset-0 rounded-full motion-safe:animate-[spin_9s_linear_infinite] opacity-70"
         style={{

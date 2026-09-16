@@ -29,9 +29,9 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Ahmad Al Haykal — Developer",
+  title: "Haykal",
   description:
-    "Portfolio Ahmad Al Haykal — Full Stack Developer from Indonesia, building with Next.js, React, NestJS & modern web.",
+    "Portfolio Haykal — Siswa RPL menuju Full-stack Developer. Dibangun dengan Next.js & Tailwind.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

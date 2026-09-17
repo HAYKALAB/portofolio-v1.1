@@ -224,7 +224,7 @@ export default function HeroSection() {
             <div className="relative rounded-[28px] border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-xl p-[1px] overflow-hidden">
               <div className="rounded-[26px] bg-[#0B1220]/70 p-6 sm:p-7">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono tracking-[0.18em] text-slate-400">PROYEK — 2024 → 2026</span>
+                  <span className="text-[10px] font-mono tracking-[0.18em] text-slate-400">PROYEK — 2026</span>
                   <span className="text-[10px] font-mono text-slate-500">ID • BEKASI</span>
                 </div>
 
@@ -232,7 +232,7 @@ export default function HeroSection() {
                   {[
                     { k: "1", v: "featured\nbuild" },
                     { k: "4", v: "certificates" },
-                    { k: "2024→", v: "building\nsince 2024" },
+                    { k: "2026→", v: "building\nsince 2026" },
                   ].map((it) => (
                     <div key={it.k} className="rounded-2xl bg-white/[0.05] border border-white/10 p-4">
                       <div className="text-[22px] font-display font-bold tracking-tight text-white leading-none">{it.k}</div>

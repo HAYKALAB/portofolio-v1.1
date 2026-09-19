@@ -1,4 +1,3 @@
-// components/RocketGuide.tsx — roket turun ke bawah + ngetik per section
 "use client";
 
 import { useRef, useEffect, useState } from "react";
@@ -9,15 +8,11 @@ const SECTION_ORDER = ["hero", "about", "study", "projects", "certificate", "con
 
 type SectionId = (typeof SECTION_ORDER)[number];
 
-// jumlah bubble intro (guide.hero + intro1 + intro2)
 const INTRO_COUNT = 3;
 
-// kecepatan ngetik (ms per huruf) dan jeda baca setelah teks selesai diketik (ms)
 const TYPE_SPEED = 28;
 const READ_PAUSE = 2200;
 
-// textKey: "intro:0" | "intro:1" | "intro:2" | id section
-// disimpan sebagai key (bukan teks) supaya otomatis ikut berubah kalau bahasa diganti
 type TextKey = `intro:${number}` | SectionId;
 
 export default function RocketGuide() {
@@ -27,26 +22,22 @@ export default function RocketGuide() {
   const containerRef = useRef<HTMLDivElement>(null);
   const rocketSvgRef = useRef<HTMLDivElement>(null);
 
-  // section tracking
   const [active, setActive] = useState<SectionId>("hero");
   const activeRef = useRef<SectionId>("hero");
 
-  // typing state
   const [textKey, setTextKey] = useState<TextKey>("intro:0");
   const [typed, setTyped] = useState<string>("");
   const [showBubble, setShowBubble] = useState<boolean>(true);
+  const [typingDone, setTypingDone] = useState<boolean>(false);
 
-  // teks yang lagi dituju, diambil dari file bahasa sesuai bahasa aktif
   const introTexts = [t.rocket.guide.hero, t.rocket.intro1, t.rocket.intro2];
   const targetText = textKey.startsWith("intro:")
     ? introTexts[Number(textKey.slice(6))]
     : t.rocket.guide[textKey as SectionId];
 
-  // intro vs guide phase
   const [introIndex, setIntroIndex] = useState(0);
   const [introDone, setIntroDone] = useState(false);
 
-  // flying state
   const phaseRef = useRef<"TALKING" | "FLYING" | "LANDING" | "LANDED">("TALKING");
   const [phase, setPhase] = useState<"TALKING" | "FLYING" | "LANDING" | "LANDED">("TALKING");
   const current = useRef({ x: 0, y: 0 });
@@ -60,15 +51,12 @@ export default function RocketGuide() {
     setMounted(true);
   }, []);
 
-  // init position (tengah hero) - responsive
   useEffect(() => {
     function initPosition() {
       current.current.x = window.innerWidth / 2 - 24;
-      // biar di HP tetap keliatan, selalu update Y saat TALKING atau sebelum FLYING jauh
       if (phaseRef.current === "TALKING" || current.current.y < window.innerHeight) {
         current.current.y = window.innerHeight * 0.42;
       }
-      // paksa moon target hitung ulang saat resize
       const el = document.getElementById("moon-landing-spot");
       if (el) {
         const rect = el.getBoundingClientRect();
@@ -83,7 +71,6 @@ export default function RocketGuide() {
     return () => window.removeEventListener("resize", initPosition);
   }, []);
 
-  // hitung titik mendarat bulan
   useEffect(() => {
     function computeMoonTarget() {
       const el = document.getElementById("moon-landing-spot");
@@ -98,7 +85,6 @@ export default function RocketGuide() {
     const timer = setTimeout(computeMoonTarget, 400);
     window.addEventListener("resize", computeMoonTarget);
     window.addEventListener("load", computeMoonTarget);
-    // also recompute on scroll because layout shifts after images
     let scrollT: number | null = null;
     function onScroll() {
       if (scrollT) return;
@@ -116,7 +102,6 @@ export default function RocketGuide() {
     };
   }, []);
 
-  // observer: deteksi section yang lagi keliatan (mobile-friendly)
   useEffect(() => {
     if (!mounted) return;
     let observer: IntersectionObserver | null = null;
@@ -157,7 +142,6 @@ export default function RocketGuide() {
     }
 
     setup();
-    // re-setup saat resize (misal desktop -> mobile di devtools) biar gak stuck
     let resizeT: number | null = null;
     function onResize() {
       if (resizeT) return;
@@ -173,59 +157,58 @@ export default function RocketGuide() {
     };
   }, [mounted]);
 
-  // intro sequence — 3 bubble di hero sebelum terbang
-  // durasi tiap bubble = waktu ngetik (sesuai panjang teks) + jeda baca,
-  // jadi teks panjang tidak terpotong sebelum selesai diketik
-  const introText = introTexts[introIndex] ?? "";
-
   useEffect(() => {
     if (phase !== "TALKING") return;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setTextKey(`intro:${introIndex}`);
     setShowBubble(true);
+  }, [phase, introIndex]);
+
+  useEffect(() => {
+    if (phase !== "TALKING" || !showBubble || !typingDone) return;
 
     const timer = setTimeout(() => {
       if (introIndex < INTRO_COUNT - 1) {
-        // blink out lalu ganti
         setShowBubble(false);
+        setTypingDone(false);
         setTimeout(() => {
           setIntroIndex((i) => i + 1);
         }, 220);
       } else {
-        // selesai intro → terbang
         setShowBubble(false);
+        setTypingDone(false);
         setTimeout(() => {
           phaseRef.current = "FLYING";
           setPhase("FLYING");
           setIntroDone(true);
-          // langsung set ke section yang lagi aktif (biasanya hero/about)
           setTextKey(activeRef.current);
           setShowBubble(true);
           targetAngle.current = 180;
         }, 300);
       }
-    }, introText.length * TYPE_SPEED + READ_PAUSE);
+    }, READ_PAUSE);
 
     return () => clearTimeout(timer);
-  }, [phase, introIndex, introText]);
+  }, [phase, showBubble, typingDone, introIndex]);
 
-  // typing effect — ketik per huruf (ulang otomatis kalau bahasa berubah)
   useEffect(() => {
     let i = 0;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setTyped("");
+    setTypingDone(false);
     if (!showBubble) return;
     const text = targetText;
-    const speed = TYPE_SPEED;
     const id = window.setInterval(() => {
       i += 1;
       setTyped(text.slice(0, i));
-      if (i >= text.length) window.clearInterval(id);
-    }, speed);
+      if (i >= text.length) {
+        window.clearInterval(id);
+        setTypingDone(true);
+      }
+    }, TYPE_SPEED);
     return () => window.clearInterval(id);
   }, [targetText, showBubble]);
 
-  // loop animasi terbang
   useEffect(() => {
     function animate() {
       if (phaseRef.current === "FLYING") {
@@ -260,7 +243,6 @@ export default function RocketGuide() {
           angle.current = 0;
           phaseRef.current = "LANDED";
           setPhase("LANDED");
-          // pas mendarat, paksa bubble future
           setTextKey("future");
           setShowBubble(true);
         }
@@ -295,7 +277,6 @@ export default function RocketGuide() {
       className="absolute top-0 left-0 z-40 flex flex-col items-center pointer-events-none"
       style={{ willChange: "transform" }}
     >
-      {/* bubble ngetik — nempel di roket */}
       <div className="absolute bottom-full mb-2 flex w-[300px] max-w-[90vw] sm:max-w-[86vw] flex-col items-center pointer-events-auto">
         <div
           className="relative w-full rounded-[14px] border bg-[#0B1220]/95 backdrop-blur-xl px-3.5 py-2.5 shadow-[0_12px_32px_rgba(0,0,0,0.45)] transition-all duration-300"
@@ -305,7 +286,6 @@ export default function RocketGuide() {
             borderColor: landed ? "rgba(56,189,248,0.35)" : "rgba(255,255,255,0.12)",
           }}
         >
-          {/* header kecil */}
           <div className="flex items-center justify-between gap-2">
             <span className="text-[10px] font-mono tracking-[0.16em] text-sky-300">
               {introDone ? t.rocket.labels[active] : `${t.rocket.introLabel} ${introIndex + 1}/${INTRO_COUNT}`}
@@ -320,14 +300,12 @@ export default function RocketGuide() {
             <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-sky-300 animate-pulse" />
           </p>
 
-          {/* tail */}
           <div
             className="absolute left-1/2 top-full h-2.5 w-2.5 -translate-x-1/2 rotate-45 -mt-1 border-r border-b bg-[#0B1220]"
             style={{ borderColor: landed ? "rgba(56,189,248,0.35)" : "rgba(255,255,255,0.12)" }}
           />
         </div>
 
-        {/* tap hint kecil — desktop only */}
         {introDone && !landed && (
           <span className="mt-1 hidden sm:block text-[10px] font-mono tracking-widest text-slate-500/80">
             {t.rocket.hint}
@@ -335,7 +313,6 @@ export default function RocketGuide() {
         )}
       </div>
 
-      {/* roket */}
       <div
         ref={rocketSvgRef}
         className={`flex h-16 w-16 items-center justify-center ${landed ? "motion-safe:animate-[landBounce_0.5s_ease-out]" : ""}`}
@@ -358,7 +335,6 @@ export default function RocketGuide() {
         </svg>
       </div>
 
-      {/* panah bawah pas intro */}
       {phase === "TALKING" && (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-1 motion-safe:animate-[bounceDown_1.4s_ease-in-out_infinite]">
           <path d="M2 5L8 11L14 5" stroke="#60A5FA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

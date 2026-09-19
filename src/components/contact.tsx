@@ -10,9 +10,9 @@ import StarField from "./angkasa/startField";
 import { useLanguage } from "@/app/data/LanguageContext";
 
 const SOCIALS = [
-  { label: "GitHub", icon: SiGithub, href: "https://github.com/username" },
-  { label: "LinkedIn", icon: FaLinkedin, href: "https://linkedin.com/in/username" },
-  { label: "Instagram", icon: SiInstagram, href: "https://instagram.com/username" },
+  { label: "GitHub", icon: SiGithub, href: "https://github.com/HAYKALAB" },
+  { label: "LinkedIn", icon: FaLinkedin, href: "https://linkedin.com/in/ahmad-al-haykal-19952b3b6" },
+  { label: "Instagram", icon: SiInstagram, href: "https://instagram.com/ahmadalhaykal" },
   { label: "Email", icon: Mail, href: "mailto:ahmadalhaykal94@gmail.com" },
 ];
 

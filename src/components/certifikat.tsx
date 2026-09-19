@@ -134,7 +134,7 @@ export default function CertificateSection() {
           className="flex items-center gap-3"
         >
           <span className="h-px w-8 bg-white/15" />
-          <span className="text-[11px] font-mono tracking-[0.2em] text-slate-400">03 — CERTIFICATES</span>
+          <span className="text-[11px] font-mono tracking-[0.2em] text-slate-400">03 — {t.certificate.tag.toUpperCase()}</span>
           <span className="h-px flex-1 max-w-[220px] bg-white/10 hidden sm:block" />
         </motion.div>
 

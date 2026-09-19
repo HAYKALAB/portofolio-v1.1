@@ -46,11 +46,11 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative isolate min-h-[100svh] flex flex-col overflow-hidden bg-[#070B14]">
+    <section className="relative isolate min-h-[100svh] flex flex-col bg-[#070B14]">
       {/* bg */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
         <StarField />
-        <div className="absolute inset-0 opacity-[0.18] overflow-hidden bg-[radial-gradient(600px_400px_at_80%_70%,rgba(56,189,248,0.12),transparent_70%)]" />
+        <div className="absolute inset-0 opacity-[0.18] bg-[radial-gradient(600px_400px_at_80%_70%,rgba(56,189,248,0.12),transparent_70%)]" />
         <TataSuryaBg />
         {/* musea-like soft radials */}
         <div className="absolute inset-0 bg-[radial-gradient(900px_600px_at_18%_-10%,rgba(56,189,248,0.18),transparent_60%),radial-gradient(800px_500px_at_92%_8%,rgba(99,102,241,0.14),transparent_62%),radial-gradient(700px_500px_at_50%_110%,rgba(14,165,233,0.08),transparent_60%)]" />
@@ -79,13 +79,13 @@ export default function HeroSection() {
         </div>
         <span className="hidden sm:inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.18em] text-slate-500 border border-white/10 rounded-full px-3 py-1.5 bg-white/[0.04] backdrop-blur">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
-          AVAILABLE FOR WORK ’26
+          {t.hero.availableBadge}
         </span>
-        <span className="sm:hidden text-[10px] font-mono tracking-widest text-slate-500">PORTFOLIO ’26</span>
+        <span className="sm:hidden text-[10px] font-mono tracking-widest text-slate-500">{t.hero.portfolioBadge}</span>
       </div>
 
-      {/* main */}
-      <div className="flex-1 flex items-center px-4 sm:px-10 md:px-16 max-w-[100vw] overflow-hidden">
+      {/* main — PENTING: Mengubah overflow-hidden ke overflow-visible agar dropdown tidak terpengaruh BFC clipping */}
+      <div className="flex-1 flex items-center px-4 sm:px-10 md:px-16 w-full overflow-visible z-20">
         <div className="w-full max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-8 lg:gap-6 items-center py-10 sm:py-14">
           {/* left: typo besar */}
           <div className="space-y-6">
@@ -110,7 +110,7 @@ export default function HeroSection() {
                 AL HAYKAL
               </span>
               <span className="block mt-3 text-[clamp(1.05rem,2.2vw,1.55rem)] font-body font-[400] tracking-[-0.02em] leading-[1.1] text-slate-300/90">
-                Siswa Rekayasa Perangkat Lunak — belajar otodidak menuju Full-stack Developer. Saat ini fokus di Frontend, sudah mencoba Backend juga.
+                {t.hero.subtitle}
               </span>
             </motion.h1>
 
@@ -141,7 +141,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.22 }}
-              className="flex flex-col sm:flex-row gap-3 pt-1"
+              className="flex flex-col sm:flex-row gap-3 pt-1 items-stretch sm:items-center"
             >
               <a
                 href="#contact"
@@ -153,14 +153,15 @@ export default function HeroSection() {
                 href="#about"
                 className="inline-flex h-[44px] w-full sm:w-auto items-center justify-center rounded-full border border-white/12 bg-white/[0.06] backdrop-blur text-slate-100 px-6 text-[13px] font-medium hover:bg-white/[0.09] transition-colors"
               >
-                {t.hero.seeBtn} — explore
+                {t.hero.seeBtn}
               </a>
 
-              <div className="relative sm:ml-1 w-full sm:w-auto" ref={langRef}>
+              {/* DROPDOWN BAHASA DENGAN PEMBAIKAN SCROLL FULL */}
+              <div className="relative sm:ml-1 w-full sm:w-auto z-[99]" ref={langRef}>
                 <button
                   type="button"
                   onClick={() => setIsOpenLang(!isOpenLang)}
-                  className="w-full sm:w-auto h-[44px] px-4 rounded-full border border-white/10 bg-[#0B1220]/70 backdrop-blur text-slate-200 text-[13px] font-medium flex items-center justify-between sm:justify-start gap-2 hover:bg-white/[0.06] transition-colors"
+                  className="w-full sm:w-auto h-[44px] px-4 rounded-full border border-white/10 bg-[#0B1220] text-slate-200 text-[13px] font-medium flex items-center justify-between sm:justify-start gap-2 hover:bg-white/[0.06] transition-colors"
                 >
                   <span className="flex items-center gap-1.5">
                     <Globe size={14} className="text-slate-400" />
@@ -168,27 +169,40 @@ export default function HeroSection() {
                   </span>
                   <ChevronDown size={14} className={`text-slate-500 transition-transform ${isOpenLang ? "rotate-180" : ""}`} />
                 </button>
+
                 {isOpenLang && (
-                  <div className="absolute left-0 sm:left-0 top-full mt-2 w-full sm:w-48 max-h-64 overflow-auto bg-[#0B1220] border border-white/10 rounded-2xl p-1.5 shadow-[0_20px_60px_rgba(0,0,0,0.5)] z-50">
-                    {languages.map((item) => (
-                      <button
-                        key={item.code}
-                        type="button"
-                        onClick={() => {
-                          setLang(item.code as LanguageCode);
-                          setIsOpenLang(false);
-                        }}
-                        className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-xl transition-colors ${
-                          lang === item.code ? "bg-white text-black font-semibold" : "hover:bg-white/10 text-slate-300"
-                        }`}
-                      >
-                        <span className="flex items-center gap-2">
-                          <span>{item.flag}</span>
-                          <span>{item.name}</span>
-                        </span>
-                        {lang === item.code && <Check size={13} />}
-                      </button>
-                    ))}
+                  <div
+                    onWheelCapture={(e) => {
+                      e.stopPropagation();
+                    }}
+                    className="absolute left-0 sm:left-0 top-full mt-2 w-full sm:w-52 h-48 overflow-y-scroll bg-[#0B1220] border border-white/20 rounded-2xl p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.9)] z-[999] pointer-events-auto cursor-pointer"
+                    style={{
+                      WebkitOverflowScrolling: "touch",
+                      scrollbarWidth: "thin",
+                      scrollbarColor: "rgba(255,255,255,0.2) transparent",
+                    }}
+                  >
+                    <div className="flex flex-col gap-1">
+                      {languages.map((item) => (
+                        <button
+                          key={item.code}
+                          type="button"
+                          onClick={() => {
+                            setLang(item.code as LanguageCode);
+                            setIsOpenLang(false);
+                          }}
+                          className={`w-full flex items-center justify-between px-3 py-2.5 text-xs rounded-xl transition-colors shrink-0 ${
+                            lang === item.code ? "bg-white text-black font-semibold" : "hover:bg-white/10 text-slate-300"
+                          }`}
+                        >
+                          <span className="flex items-center gap-2">
+                            <span>{item.flag}</span>
+                            <span>{item.name}</span>
+                          </span>
+                          {lang === item.code && <Check size={13} />}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -200,7 +214,7 @@ export default function HeroSection() {
               transition={{ delay: 0.34 }}
               className="pt-5 mt-2 border-t border-white/[0.08]"
             >
-              <p className="text-[10px] font-mono tracking-[0.18em] text-slate-500 mb-2.5">TEKNOLOGI UTAMA</p>
+              <p className="text-[10px] font-mono tracking-[0.18em] text-slate-500 mb-2.5">{t.hero.techTitle}</p>
               <div className="flex flex-wrap gap-2">
                 {["Next.js • TypeScript", "React • Tailwind", "NestJS • PostgreSQL", "Framer Motion"].map((s) => (
                   <span
@@ -214,7 +228,7 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* right: editorial card — anti-AI, human, asymmetric */}
+          {/* right: editorial card */}
           <motion.div
             initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -224,15 +238,15 @@ export default function HeroSection() {
             <div className="relative rounded-[28px] border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-xl p-[1px] overflow-hidden">
               <div className="rounded-[26px] bg-[#0B1220]/70 p-6 sm:p-7">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono tracking-[0.18em] text-slate-400">PROYEK — 2026</span>
+                  <span className="text-[10px] font-mono tracking-[0.18em] text-slate-400">{t.hero.projectLabel}</span>
                   <span className="text-[10px] font-mono text-slate-500">ID • BEKASI</span>
                 </div>
 
                 <div className="mt-5 grid grid-cols-3 gap-3">
                   {[
-                    { k: "1", v: "featured\nbuild" },
-                    { k: "4", v: "certificates" },
-                    { k: "2026→", v: "building\nsince 2026" },
+                    { k: "1", v: t.hero.statFeatured },
+                    { k: "4", v: t.hero.statCertificates },
+                    { k: "2026→", v: t.hero.statSince },
                   ].map((it) => (
                     <div key={it.k} className="rounded-2xl bg-white/[0.05] border border-white/10 p-4">
                       <div className="text-[22px] font-display font-bold tracking-tight text-white leading-none">{it.k}</div>
@@ -243,16 +257,16 @@ export default function HeroSection() {
 
                 <div className="mt-6 rounded-2xl border border-white/10 bg-[#070B14]/60 p-4">
                   <div className="flex items-center gap-2 text-[11px] font-mono tracking-widest text-slate-400">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> SEDANG DIKEMBANGKAN
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> {t.hero.currentlyBuilding}
                   </div>
                   <p className="mt-2 text-[13px] leading-relaxed text-slate-200">
-                    Platform booking futsal dengan dashboard yang efisien, pengecekan jadwal real-time, dan pengalaman mobile yang optimal.
-                    <span className="text-slate-400"> Next up: polish & deploy.</span>
+                    {t.hero.projectDesc}
+                    <span className="text-slate-400"> {t.hero.nextUp}</span>
                   </p>
                   <div className="mt-3 flex flex-wrap gap-1.5">
-                    {["Next.js", "NestJS", "PostgreSQL", "Tailwind"].map((t) => (
-                      <span key={t} className="text-[10px] px-2 py-1 rounded-full bg-white text-black font-medium">
-                        {t}
+                    {["Next.js", "NestJS", "PostgreSQL", "Tailwind"].map((tech) => (
+                      <span key={tech} className="text-[10px] px-2 py-1 rounded-full bg-white text-black font-medium">
+                        {tech}
                       </span>
                     ))}
                   </div>
@@ -260,7 +274,7 @@ export default function HeroSection() {
 
                 <div className="mt-6 flex items-center justify-between text-[11px] font-mono text-slate-500">
                   <span>© AHMAD AL HAYKAL</span>
-                  <span className="hidden sm:inline">SCROLL KUY ↓</span>
+                  <span className="hidden sm:inline">{t.hero.scrollHint}</span>
                 </div>
               </div>
             </div>
@@ -272,7 +286,7 @@ export default function HeroSection() {
       </div>
 
       <div className="flex flex-col items-center gap-1 pb-6 z-10">
-        <span className="text-[9px] tracking-[0.22em] font-mono text-slate-500">SCROLL</span>
+        <span className="text-[9px] tracking-[0.22em] font-mono text-slate-500">{t.hero.scroll}</span>
         <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>
           <ChevronDown size={14} className="text-slate-500" />
         </motion.div>

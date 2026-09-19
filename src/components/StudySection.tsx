@@ -216,7 +216,7 @@ export default function StudySection() {
           className="flex items-center gap-3"
         >
           <span className="h-px w-8 bg-white/15" />
-          <span className="text-[11px] font-mono tracking-[0.2em] text-slate-400">02 — SKILLS</span>
+          <span className="text-[11px] font-mono tracking-[0.2em] text-slate-400">02 — {t.study.tag.toUpperCase()}</span>
           <span className="h-px flex-1 max-w-[220px] bg-white/10 hidden sm:block" />
         </motion.div>
 
@@ -263,7 +263,7 @@ export default function StudySection() {
           transition={{ delay: 0.3 }}
           className="mt-8 text-center text-[11px] font-mono tracking-[0.16em] text-slate-500"
         >
-          HOVER / TAP ICON UNTUK LIHAT NAMA • ORBIT BERJALAN OTOMATIS
+          {t.study.hint}
         </motion.p>
       </div>
     </section>

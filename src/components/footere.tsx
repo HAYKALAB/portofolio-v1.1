@@ -28,7 +28,7 @@ export default function FutureSection() {
             {t.future?.title}
           </h2>
           <p className="mx-auto mt-3 max-w-[520px] text-sm leading-relaxed text-slate-400">
-            Dibuat dengan perhatian pada detail dan performa. Proyek selanjutnya sedang disiapkan.
+            {t.future.description}
           </p>
         </motion.div>
 
@@ -72,7 +72,7 @@ export default function FutureSection() {
             © {new Date().getFullYear()} Ahmad Al Haykal. {t.future?.rights || "All rights reserved."}
           </p>
           <p className="font-mono tracking-[0.16em] text-slate-500">
-            BEKASI • JAKARTA • REMOTE — <span className="text-slate-300">BUILT WITH NEXT.JS</span>
+            BEKASI • JAKARTA • REMOTE — <span className="text-slate-300">{t.future.builtWith} NEXT.JS</span>
           </p>
         </div>
       </div>

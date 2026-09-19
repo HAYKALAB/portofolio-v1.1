@@ -10,7 +10,34 @@ export const languages = [
 export type LanguageCode = (typeof languages)[number]["code"];
 
 export const content = {
+  // =========================================================
+  // ENGLISH
+  // =========================================================
   en: {
+    rocket: {
+      introLabel: "INTRO",
+      hint: "SCROLL AND I'LL CHANGE THE STORY",
+      intro1: "I'll accompany you on your journey through every section.",
+      intro2: "Please scroll slowly to continue.",
+      labels: {
+        hero: "HOME",
+        about: "ABOUT",
+        study: "SKILLS",
+        projects: "PROJECTS",
+        certificate: "CERTIFICATES",
+        contact: "CONTACT",
+        future: "FINISH",
+      },
+      guide: {
+        hero: "Hello, I'm Ahmad Al Haykal. Welcome to my portfolio. Please scroll down to get to know me better.",
+        about: "I'm a developer from Bekasi who builds products from my room. I pay attention to details so the result feels comfortable to use and polished.",
+        study: "These are the technologies I use every day. Hover or tap an icon to see its name.",
+        projects: "This is my featured project, FUTSALIN — a futsal booking platform. It's still in development, but the main flow is already working.",
+        certificate: "I've completed 4 certificates on Dicoding. Tap a card to see the details and verification.",
+        contact: "If you'd like to connect, send a message through the form below or reach me at ahmadalhaykal94@gmail.com.",
+        future: "Thank you for exploring this portfolio all the way to the end. See you on the next project.",
+      },
+    },
     nav: {
       about: "About",
       study: "Skills",
@@ -18,22 +45,32 @@ export const content = {
       certificate: "Certificates",
       contact: "Contact",
       talkBtn: "Contact me",
+      menuOpen: "Open menu",
+      menuClose: "Close menu",
+      languageLabel: "LANGUAGE",
     },
     future: {
       tag: "What's next",
       title: "See you on the next mission",
+      description: "Built with attention to detail and performance. The next project is being prepared.",
+      builtWith: "BUILT WITH",
       rights: "All rights reserved.",
     },
     study: {
       tag: "Skills & Tools",
       title: "Technologies I work with",
       description: "Each skill is shown as a planet — hover or tap an icon to see its name. All of these are part of my daily stack.",
+      hint: "HOVER / TAP AN ICON TO SEE ITS NAME • ORBITS RUN AUTOMATICALLY",
     },
     about: {
       tag: "About me",
       title: "Developer from Indonesia,\nbuilding for everyone.",
       description:
         "I'm Ahmad Al Haykal, a developer from Bekasi who builds end-to-end products. I pay attention to details so the result feels polished and comfortable to use. I build full-stack with React, Next.js, and Node.js from scratch to production.",
+      openTo: "Open for internships & freelance",
+      quote: "I enjoy paying attention to details until the product feels polished and comfortable to use.",
+      traits: ["Detail-oriented", "Fast learner", "Team player"],
+      globeTagline: "BUILDING FOR THE WORLD",
     },
     certificate: {
       tag: "Certificates",
@@ -44,6 +81,8 @@ export const content = {
     },
     hero: {
       title: "Hello, I'm Ahmad Al Haykal",
+      subtitle:
+        "Software Engineering student — self-taught on the path to Full-stack Developer. Currently focused on Frontend, and I've tried Backend too.",
       runningText: [
         "Hello, I'm Ahmad Al Haykal.",
         "RPL student learning self-taught toward Full-stack Developer.",
@@ -51,6 +90,49 @@ export const content = {
       ],
       contactBtn: "Contact me",
       seeBtn: "Explore",
+      availableBadge: "AVAILABLE FOR WORK ’26",
+      portfolioBadge: "PORTFOLIO ’26",
+      techTitle: "MAIN TECH",
+      projectLabel: "PROJECT — 2026",
+      statFeatured: "featured\nbuild",
+      statCertificates: "certificates",
+      statSince: "building\nsince 2026",
+      currentlyBuilding: "CURRENTLY BUILDING",
+      projectDesc:
+        "A futsal booking platform with an efficient dashboard, real-time schedule checking, and an optimized mobile experience.",
+      nextUp: "Next up: polish & deploy.",
+      scrollHint: "SCROLL DOWN ↓",
+      scroll: "SCROLL",
+    },
+    projects: {
+      label: "FEATURED BUILD — IN PROGRESS",
+      titleLead: "One project I'm building",
+      titleHighlight: "with real seriousness.",
+      description:
+        "Not a template. This project is built from scratch. The core flow already works and is now being polished for a better mobile experience.",
+      liveBadge: "LIVE IN DEV",
+      mockupTitle: "Futsal Booking Platform",
+      inProgress: "IN PROGRESS",
+      mockupDesc:
+        "Admins can manage locations & bookings with ease — tap a location card → details, bookings have their own tab + detail/edit modal.",
+      statLocations: "demo locations",
+      statStatus: "booking statuses",
+      statFav: "love toggle",
+      addLocation: "Add Location",
+      lastUpdate: "Last update: polished modals & split files to keep things tidy",
+      stillBuilding: "STILL BUILDING — FEEDBACK WELCOME",
+      tagline: " — futsal booking, done properly.",
+      details:
+        "The goal is easier management for admins with an optimized mobile experience. From managing locations (tap a card → full details) to bookings (separate tab, search, pagination, detail & edit that prevents schedule clashes).",
+      features: [
+        "Manage Locations — tap a card to see full details such as photos, description, opening hours, and the list of courts.",
+        "Manage Bookings — kept in their own tab instead of piling up on the dashboard. Detail and edit are separate, with schedule validation.",
+        "Favorites on the home page plus a read-only detail page for users. File structure is tidied up so it's easy to maintain.",
+      ],
+      github: "View on GitHub",
+      liveDemo: "Live demo — releasing soon",
+      note: "This project is still in development. Feedback and suggestions are very much appreciated.",
+      footerNote: "WANT TO PEEK AT THE CODE? CHECK GITHUB ABOVE — NEXT DEPLOY ONCE IT'S REALLY READY",
     },
     contact: {
       tag: "Contact",
@@ -66,9 +148,44 @@ export const content = {
       sendingBtn: "Sending...",
       successMessage: "Message sent. I'll reply soon.",
       errorMessage: "Failed to send. Please try again.",
+      responseLabel: "RESPONSE",
+      responseTitle: "Within 24 hours",
+      responseDesc: "Usually the same day (WIB)",
+      locationLabel: "LOCATION",
+      locationDesc: "Remote anywhere, let's go",
+      formTitle: "SEND A MESSAGE",
+      commitment: "I'm committed to replying to every message promptly.",
     },
   },
+
+  // =========================================================
+  // INDONESIA
+  // =========================================================
   id: {
+    rocket: {
+      introLabel: "INTRO",
+      hint: "SCROLL BIAR AKU GANTI CERITA",
+      intro1: "Saya akan menemani perjalanan Anda di setiap bagian.",
+      intro2: "Silakan scroll perlahan untuk melanjutkan.",
+      labels: {
+        hero: "BERANDA",
+        about: "TENTANG",
+        study: "KEAHLIAN",
+        projects: "PROYEK",
+        certificate: "SERTIFIKAT",
+        contact: "KONTAK",
+        future: "PENUTUP",
+      },
+      guide: {
+        hero: "Halo, saya Ahmad Al Haykal. Selamat datang di portofolio saya. Silakan scroll ke bawah untuk mengenal saya lebih dekat.",
+        about: "Saya developer dari Bekasi yang membangun produk dari kamar. Saya memperhatikan detail agar hasilnya nyaman digunakan dan terasa matang.",
+        study: "Ini adalah teknologi yang saya gunakan sehari-hari. Silakan arahkan kursor atau ketuk ikon untuk melihat namanya.",
+        projects: "Ini adalah proyek unggulan saya, FUTSALIN — platform booking futsal. Proyek ini masih dalam pengembangan, namun alur utamanya sudah berjalan.",
+        certificate: "Saya telah menyelesaikan 4 sertifikat di Dicoding. Silakan ketuk kartu untuk melihat detail dan verifikasinya.",
+        contact: "Jika ingin terhubung, silakan kirim pesan melalui formulir di bawah atau hubungi saya di ahmadalhaykal94@gmail.com.",
+        future: "Terima kasih telah menjelajahi portofolio ini sampai akhir. Sampai jumpa di proyek selanjutnya.",
+      },
+    },
     nav: {
       about: "Tentang",
       study: "Keahlian",
@@ -76,25 +193,37 @@ export const content = {
       certificate: "Sertifikat",
       contact: "Kontak",
       talkBtn: "Hubungi Saya",
+      menuOpen: "Buka menu",
+      menuClose: "Tutup menu",
+      languageLabel: "BAHASA",
     },
     future: {
       tag: "Selanjutnya",
       title: "Sampai jumpa di misi selanjutnya",
+      description: "Dibuat dengan perhatian pada detail dan performa. Proyek selanjutnya sedang disiapkan.",
+      builtWith: "DIBUAT DENGAN",
       rights: "All rights reserved.",
     },
     study: {
       tag: "Keahlian",
       title: "Teknologi yang saya gunakan",
       description: "Setiap keahlian ditampilkan sebagai planet. Arahkan kursor atau ketuk ikon untuk melihat namanya.",
+      hint: "HOVER / TAP IKON UNTUK LIHAT NAMA • ORBIT BERJALAN OTOMATIS",
     },
     about: {
       tag: "Tentang Saya",
       title: "Developer dari Bekasi\nuntuk siapa saja.",
       description:
         "Saya Ahmad Al Haykal, siswa Rekayasa Perangkat Lunak yang belajar otodidak menuju Full-stack Developer. Saat ini saya fokus mendalami Frontend terlebih dahulu, sambil terus mengasah Backend yang sudah pernah saya coba.",
+      openTo: "Terbuka untuk magang & freelance",
+      quote: "Saya senang memperhatikan detail hingga produk terasa matang dan nyaman digunakan.",
+      traits: ["Detail-oriented", "Fast learner", "Team player"],
+      globeTagline: "MEMBANGUN UNTUK DUNIA",
     },
     hero: {
       title: "Halo, saya Ahmad Al Haykal",
+      subtitle:
+        "Siswa Rekayasa Perangkat Lunak — belajar otodidak menuju Full-stack Developer. Saat ini fokus di Frontend, sudah mencoba Backend juga.",
       runningText: [
         "Halo, saya Ahmad Al Haykal.",
         "Siswa RPL yang belajar otodidak menuju Full-stack Developer.",
@@ -102,6 +231,19 @@ export const content = {
       ],
       contactBtn: "Hubungi Saya",
       seeBtn: "Jelajahi",
+      availableBadge: "TERSEDIA UNTUK KERJA ’26",
+      portfolioBadge: "PORTOFOLIO ’26",
+      techTitle: "TEKNOLOGI UTAMA",
+      projectLabel: "PROYEK — 2026",
+      statFeatured: "proyek\nunggulan",
+      statCertificates: "sertifikat",
+      statSince: "membangun\nsejak 2026",
+      currentlyBuilding: "SEDANG DIKEMBANGKAN",
+      projectDesc:
+        "Platform booking futsal dengan dashboard yang efisien, pengecekan jadwal real-time, dan pengalaman mobile yang optimal.",
+      nextUp: "Selanjutnya: poles & deploy.",
+      scrollHint: "SCROLL KUY ↓",
+      scroll: "SCROLL",
     },
     certificate: {
       tag: "Sertifikat",
@@ -109,6 +251,36 @@ export const content = {
       description: "Kumpulan pembelajaran yang telah saya selesaikan. Ketuk kartu untuk melihat detail dan memverifikasi keasliannya.",
       previewText: "Lihat",
       verifyText: "Verifikasi",
+    },
+    projects: {
+      label: "PROYEK UNGGULAN — SEDANG DIKERJAKAN",
+      titleLead: "Satu proyek yang saya kembangkan",
+      titleHighlight: "dengan serius.",
+      description:
+        "Bukan template. Proyek ini dibangun dari nol. Alur intinya sudah berjalan dan saat ini sedang disempurnakan untuk pengalaman mobile yang lebih baik.",
+      liveBadge: "LIVE DI DEV",
+      mockupTitle: "Platform Booking Futsal",
+      inProgress: "DALAM PROSES",
+      mockupDesc:
+        "Admin bisa kelola lokasi & booking tanpa ribet — klik card lokasi → detail, booking punya tab sendiri + detail/edit modal.",
+      statLocations: "lokasi demo",
+      statStatus: "status booking",
+      statFav: "toggle favorit",
+      addLocation: "Tambah Lokasi",
+      lastUpdate: "Update terakhir: dipoles modal & pecah file biar rapi",
+      stillBuilding: "MASIH DIBANGUN — MASUKAN DITERIMA",
+      tagline: " — booking futsal, dibikin proper.",
+      details:
+        "Tujuannya agar pengelolaan oleh admin lebih mudah dengan pengalaman mobile yang optimal. Dari kelola lokasi (card bisa di-tap → detail lengkap) sampe booking (tab misah, search, pagination, detail & edit anti jam bentrok).",
+      features: [
+        "Kelola Lokasi — ketuk kartu untuk melihat detail lengkap seperti foto, deskripsi, jam operasional, dan daftar lapangan.",
+        "Kelola Booking — dipisah dalam tab tersendiri, tidak menumpuk di dashboard. Detail dan edit terpisah dengan validasi jadwal.",
+        "Fitur favorit di beranda serta halaman detail read-only untuk pengguna. Struktur file dirapikan agar mudah dikelola.",
+      ],
+      github: "Lihat di GitHub",
+      liveDemo: "Live demo — bentar lagi rilis",
+      note: "Proyek ini masih dalam pengembangan. Masukan dan saran sangat saya hargai.",
+      footerNote: "MAU NGINTIP CODE-NYA? CEK GITHUB DI ATAS — NEXT DEPLOY PAS UDAH MATENG BENER",
     },
     contact: {
       tag: "Kontak",
@@ -124,9 +296,44 @@ export const content = {
       sendingBtn: "Mengirim...",
       successMessage: "Pesan terkirim. Saya akan segera membalas.",
       errorMessage: "Gagal mengirim. Silakan coba lagi.",
+      responseLabel: "RESPON",
+      responseTitle: "Paling lama 24 jam",
+      responseDesc: "Biasanya di hari yang sama (WIB)",
+      locationLabel: "LOKASI",
+      locationDesc: "Remote kemana aja gas",
+      formTitle: "KIRIM PESAN",
+      commitment: "Saya berkomitmen untuk membalas setiap pesan dengan segera.",
     },
   },
+
+  // =========================================================
+  // JAWA
+  // =========================================================
   jv: {
+    rocket: {
+      introLabel: "INTRO",
+      hint: "SCROLL SUPADOS KULA GANTI CARITA",
+      intro1: "Kula badhe ndherekaken lelampahan panjenengan ing saben bagian.",
+      intro2: "Mangga di-scroll alon-alon kangge nglajengaken.",
+      labels: {
+        hero: "BERANDA",
+        about: "BABAGAN",
+        study: "KEAHLIAN",
+        projects: "PROYEK",
+        certificate: "SERTIFIKAT",
+        contact: "KONTAK",
+        future: "PENUTUP",
+      },
+      guide: {
+        hero: "Halo, kula Ahmad Al Haykal. Sugeng rawuh ing portofolio kula. Mangga scroll mangandhap kangge tepang langkung caket.",
+        about: "Kula developer saking Bekasi ingkang mbangun produk saking kamar. Kula merhatosaken detail supados asilipun penak dipun ginakaken lan raosipun mateng.",
+        study: "Menika teknologi ingkang kula ginakaken saben dinten. Mangga arahaken kursor utawi ketuk ikon kangge ningali naminipun.",
+        projects: "Menika proyek unggulan kula, FUTSALIN — platform booking futsal. Proyek menika taksih dipun kembangaken, nanging alur utaminipun sampun mlampah.",
+        certificate: "Kula sampun ngrampungaken 4 sertifikat ing Dicoding. Mangga ketuk kartu kangge ningali detail lan verifikasinipun.",
+        contact: "Menawi kersa sesambungan, mangga kirim pesen lumantar formulir ing ngandhap utawi hubungi kula ing ahmadalhaykal94@gmail.com.",
+        future: "Matur nuwun sampun njelajahi portofolio menika ngantos pungkasan. Kepanggih malih ing proyek salajengipun.",
+      },
+    },
     nav: {
       about: "Babagan",
       study: "Keahlian",
@@ -134,24 +341,36 @@ export const content = {
       certificate: "Sertifikat",
       contact: "Kontak",
       talkBtn: "Hubungi Kula",
+      menuOpen: "Bikak menu",
+      menuClose: "Tutup menu",
+      languageLabel: "BASA",
     },
     future: {
       tag: "Salajengipun",
       title: "Mugi panggih wonten ing misi salajengipun",
+      description: "Dipun damel kanthi ngati-ati ing detail lan performa. Proyek salajengipun sakmenika dipun cawisaken.",
+      builtWith: "DIPUN DAMEL KANTHI",
       rights: "Hak cipta dilindungi.",
     },
     study: {
       tag: "Keahlian",
       title: "Teknologi ingkang kula ginakaken",
       description: "Saben keahlian dipun tampilaken minangka planet. Arahkan kursor utawi ketuk ikon kangge ningali naminipun.",
+      hint: "HOVER / KETUK IKON KANGGE NINGALI NAMI • ORBIT MLEBET OTOMATIS",
     },
     about: {
       tag: "Babagan Kula",
       title: "Developer saking Bekasi\nkangge sinten kemawon.",
       description: "Kula Ahmad Al Haykal, developer saking Bekasi ingkang mbangun produk wiwit awal ngantos siap dipun ginakaken.",
+      openTo: "Kabuka kangge magang & freelance",
+      quote: "Kula remen merhatosaken detail ngantos produk raosipun sampun mateng lan penak dipun ginakaken.",
+      traits: ["Titi lan permati", "Cepet sinau", "Kanca tim ingkang sae"],
+      globeTagline: "MBANGUN KANGGE DONYA",
     },
     hero: {
       title: "Halo, kula Ahmad Al Haykal",
+      subtitle:
+        "Siswa Rekayasa Perangkat Lunak — sinau otodidak tumuju Full-stack Developer. Sakmenika fokus ing Frontend, sampun nyobi Backend ugi.",
       runningText: [
         "Halo, kula Ahmad Al Haykal.",
         "Kula ngowahi ide dados produk digital.",
@@ -159,6 +378,19 @@ export const content = {
       ],
       contactBtn: "Hubungi Kula",
       seeBtn: "Jelajahi",
+      availableBadge: "SIAP KANGGE KERJA ’26",
+      portfolioBadge: "PORTOFOLIO ’26",
+      techTitle: "TEKNOLOGI UTAMA",
+      projectLabel: "PROYEK — 2026",
+      statFeatured: "proyek\nunggulan",
+      statCertificates: "sertifikat",
+      statSince: "mbangun\nwiwit 2026",
+      currentlyBuilding: "SAKMENIKA DIPUN GARAP",
+      projectDesc:
+        "Platform booking futsal kanthi dashboard ingkang efisien, pengecekan jadwal real-time, lan pengalaman mobile ingkang optimal.",
+      nextUp: "Salajengipun: poles & deploy.",
+      scrollHint: "SCROLL NGANDHAP ↓",
+      scroll: "SCROLL",
     },
     certificate: {
       tag: "Sertifikat",
@@ -166,6 +398,36 @@ export const content = {
       description: "Kumpulan pasinaon ingkang sampun kula rampungaken.",
       previewText: "Pirsani",
       verifyText: "Verifikasi",
+    },
+    projects: {
+      label: "PROYEK UNGGULAN — SAKMENIKA DIPUN GARAP",
+      titleLead: "Setunggal proyek ingkang kula kembangaken",
+      titleHighlight: "kanthi temenan.",
+      description:
+        "Sanes template. Proyek punika dipun bangun saking awal. Alur intinipun sampun mlampah lan sakmenika dipun sempurnaaken kangge pengalaman mobile ingkang langkung sae.",
+      liveBadge: "LIVE ING DEV",
+      mockupTitle: "Platform Booking Futsal",
+      inProgress: "DIPUN GARAP",
+      mockupDesc:
+        "Admin saged ngatur lokasi & booking tanpa ribet — klik kartu lokasi → detail, booking gadhah tab piyambak + modal detail/edit.",
+      statLocations: "lokasi demo",
+      statStatus: "status booking",
+      statFav: "toggle favorit",
+      addLocation: "Tambah Lokasi",
+      lastUpdate: "Update pungkasan: modal dipun poles & file dipun pecah supados rapi",
+      stillBuilding: "TAKSIH DIPUN BANGUN — SARAN KAPARENG",
+      tagline: " — booking futsal, dipun damel ingkang leres.",
+      details:
+        "Ancasipun supados pangaturan dening admin langkung gampil kanthi pengalaman mobile ingkang optimal. Saking ngatur lokasi (kartu saged dipun ketuk → detail lengkap) dumugi booking (tab pisah, search, pagination, detail & edit ingkang nyegah jam tabrakan).",
+      features: [
+        "Kelola Lokasi — ketuk kartu kangge ningali detail lengkap kados foto, katrangan, jam operasional, lan daftar lapangan.",
+        "Kelola Booking — dipun pisah wonten tab piyambak, boten numpuk ing dashboard. Detail lan edit kapisah kanthi validasi jadwal.",
+        "Fitur favorit ing beranda saha kaca detail read-only kangge pangguna. Struktur file dipun rapiaken supados gampil dipun kelola.",
+      ],
+      github: "Pirsani ing GitHub",
+      liveDemo: "Live demo — sekedhap malih rilis",
+      note: "Proyek punika taksih dipun kembangaken. Saran lan pamrayogi kula ajeni sanget.",
+      footerNote: "KERSA NGINTIP CODE-IPUN? CEK GITHUB ING NGAJENG — DEPLOY SALAJENGIPUN NALIKA SAMPUN MATENG",
     },
     contact: {
       tag: "Kontak",
@@ -181,9 +443,44 @@ export const content = {
       sendingBtn: "Ngirim...",
       successMessage: "Pesen terkirim.",
       errorMessage: "Gagal ngirim. Cobi malih.",
+      responseLabel: "WANGSULAN",
+      responseTitle: "Paling dangu 24 jam",
+      responseDesc: "Biasanipun ing dinten ingkang sami (WIB)",
+      locationLabel: "LOKASI",
+      locationDesc: "Remote dhateng pundi kemawon",
+      formTitle: "KIRIM PESEN",
+      commitment: "Kula badhe mangsuli saben pesen kanthi enggal.",
     },
   },
+
+  // =========================================================
+  // SUNDA
+  // =========================================================
   su: {
+    rocket: {
+      introLabel: "INTRO",
+      hint: "SCROLL SANGKAN ABDI GANTI CARITA",
+      intro1: "Abdi bakal marengan lalampahan Anjeun dina unggal bagian.",
+      intro2: "Mangga scroll lalaunan pikeun neraskeun.",
+      labels: {
+        hero: "BERANDA",
+        about: "NGEUNAAN",
+        study: "KAAHLIAN",
+        projects: "PROYEK",
+        certificate: "SERTIFIKAT",
+        contact: "KONTAK",
+        future: "PENUTUP",
+      },
+      guide: {
+        hero: "Halo, abdi Ahmad Al Haykal. Wilujeng sumping di portofolio abdi. Mangga scroll ka handap pikeun langkung wanoh.",
+        about: "Abdi developer ti Bekasi anu ngawangun produk ti kamar. Abdi merhatikeun detil sangkan hasilna raoseun dianggo jeung karasa asak.",
+        study: "Ieu téknologi anu abdi anggo unggal dinten. Mangga arahkeun kursor atawa ketuk ikon pikeun ningali namina.",
+        projects: "Ieu proyek unggulan abdi, FUTSALIN — platform booking futsal. Proyek ieu masih dina pamekaran, tapi alur utamana geus jalan.",
+        certificate: "Abdi parantos ngarengsekeun 4 sertifikat di Dicoding. Mangga ketuk kartu pikeun ningali detil jeung verifikasina.",
+        contact: "Upami hoyong tepang, mangga kirim pesen ngalangkungan formulir di handap atawa hubungi abdi di ahmadalhaykal94@gmail.com.",
+        future: "Hatur nuhun parantos ngajajah portofolio ieu dugi ka tungtung. Tepang deui dina proyek salajengna.",
+      },
+    },
     nav: {
       about: "Ngeunaan",
       study: "Kaahlian",
@@ -191,24 +488,36 @@ export const content = {
       certificate: "Sertifikat",
       contact: "Kontak",
       talkBtn: "Hubungi Abdi",
+      menuOpen: "Buka menu",
+      menuClose: "Tutup menu",
+      languageLabel: "BASA",
     },
     future: {
       tag: "Salajengna",
       title: "Tepang deui dina misi salajengna",
+      description: "Dijieun kalayan merhatikeun detil jeung performa. Proyek salajengna keur disiapkeun.",
+      builtWith: "DIJIEUN KU",
       rights: "Sadaya hak ditangtayungan.",
     },
     study: {
       tag: "Kaahlian",
       title: "Teknologi nu dianggo",
       description: "Unggal kaahlian ditampilkeun salaku planet. Arahkeun kursor atawa ketuk ikon pikeun ningali namina.",
+      hint: "HOVER / KETUK IKON PIKEUN NINGALI NAMI • ORBIT JALAN OTOMATIS",
     },
     about: {
       tag: "Ngeunaan Abdi",
       title: "Developer ti Bekasi\nkanggo saha wae.",
       description: "Abdi Ahmad Al Haykal, developer ti Bekasi nu ngawangun produk ti awal dugi ka siap dianggo.",
+      openTo: "Kabuka pikeun magang & freelance",
+      quote: "Abdi resep merhatikeun detil nepi ka produk karasa asak jeung raoseun dipaké.",
+      traits: ["Taliti kana detil", "Gancang diajar", "Anggota tim nu hade"],
+      globeTagline: "NGAWANGUN PIKEUN DUNYA",
     },
     hero: {
       title: "Halo, abdi Ahmad Al Haykal",
+      subtitle:
+        "Murid Rekayasa Perangkat Lunak — diajar otodidak nuju Full-stack Developer. Ayeuna fokus di Frontend, tos nyobaan Backend oge.",
       runningText: [
         "Halo, abdi Ahmad Al Haykal.",
         "Abdi ngarobah ide janten produk digital.",
@@ -216,6 +525,19 @@ export const content = {
       ],
       contactBtn: "Hubungi Abdi",
       seeBtn: "Jelajahi",
+      availableBadge: "SIAP KANGGO KERJA ’26",
+      portfolioBadge: "PORTOFOLIO ’26",
+      techTitle: "TEKNOLOGI UTAMA",
+      projectLabel: "PROYEK — 2026",
+      statFeatured: "proyek\nunggulan",
+      statCertificates: "sertifikat",
+      statSince: "ngawangun\nti 2026",
+      currentlyBuilding: "KEUR DIGARAP",
+      projectDesc:
+        "Platform booking futsal kalayan dashboard nu efisien, pamariksaan jadwal real-time, jeung pangalaman mobile nu optimal.",
+      nextUp: "Salajengna: poles & deploy.",
+      scrollHint: "SCROLL KA HANDAP ↓",
+      scroll: "SCROLL",
     },
     certificate: {
       tag: "Sertifikat",
@@ -223,6 +545,36 @@ export const content = {
       description: "Kumpulan diajar nu parantos direngsekeun.",
       previewText: "Tingali",
       verifyText: "Verifikasi",
+    },
+    projects: {
+      label: "PROYEK UNGGULAN — KEUR DIGARAP",
+      titleLead: "Hiji proyek nu abdi kembangkeun",
+      titleHighlight: "kalayan sungguh-sungguh.",
+      description:
+        "Lain template. Proyek ieu diwangun ti awal. Alur utamana geus jalan sarta ayeuna keur disampurnakeun pikeun pangalaman mobile nu leuwih hade.",
+      liveBadge: "LIVE DI DEV",
+      mockupTitle: "Platform Booking Futsal",
+      inProgress: "KEUR DIGARAP",
+      mockupDesc:
+        "Admin bisa ngatur lokasi & booking tanpa ribet — klik kartu lokasi → detil, booking boga tab sorangan + modal detil/edit.",
+      statLocations: "lokasi demo",
+      statStatus: "status booking",
+      statFav: "toggle favorit",
+      addLocation: "Tambah Lokasi",
+      lastUpdate: "Update panungtung: modal dipoles & file dipecah sangkan rapih",
+      stillBuilding: "MASIH DIWANGUN — SARAN DITAMPI",
+      tagline: " — booking futsal, dijieun bener.",
+      details:
+        "Tujuanana pikeun ngagampangkeun pangurusan ku admin kalayan pangalaman mobile nu optimal. Ti ngatur lokasi (kartu bisa diketuk → detil lengkep) nepi ka booking (tab pisah, search, pagination, detil & edit anti jam bentrok).",
+      features: [
+        "Kelola Lokasi — ketuk kartu pikeun ningali detil lengkep saperti poto, katerangan, jam operasional, jeung daptar lapang.",
+        "Kelola Booking — dipisah dina tab sorangan, teu numpuk di dashboard. Detil jeung edit pisah kalayan validasi jadwal.",
+        "Fitur favorit di beranda sarta kaca detil read-only pikeun pamaké. Struktur file dirapihkeun sangkan gampang diurus.",
+      ],
+      github: "Tingali di GitHub",
+      liveDemo: "Live demo — sakedap deui rilis",
+      note: "Proyek ieu masih dina pamekaran. Saran jeung pamanggih pisan dihargaan.",
+      footerNote: "HAYANG NGINTIP CODE-NA? CEK GITHUB DI LUHUR — DEPLOY SALAJENGNA PAS GEUS MATENG",
     },
     contact: {
       tag: "Kontak",
@@ -238,9 +590,44 @@ export const content = {
       sendingBtn: "Ngirim...",
       successMessage: "Pesen terkirim.",
       errorMessage: "Gagal ngirim. Coba deui.",
+      responseLabel: "BALASAN",
+      responseTitle: "Paling lami 24 jam",
+      responseDesc: "Biasana dina poé anu sami (WIB)",
+      locationLabel: "LOKASI",
+      locationDesc: "Remote ka mana waé, hayu",
+      formTitle: "KIRIM PESEN",
+      commitment: "Abdi komitmen pikeun ngabales unggal pesen sakedapan.",
     },
   },
+
+  // =========================================================
+  // MINANG
+  // =========================================================
   min: {
+    rocket: {
+      introLabel: "INTRO",
+      hint: "SCROLL SUPAYO AMBO GANTI CARITO",
+      intro1: "Ambo ka manamani parjalanan Anda di tiok bagian.",
+      intro2: "Silakan scroll paralahan untuak malanjuikan.",
+      labels: {
+        hero: "BARANDA",
+        about: "TENTANG",
+        study: "KAAHLIAN",
+        projects: "PROYEK",
+        certificate: "SERTIFIKAT",
+        contact: "KONTAK",
+        future: "PENUTUP",
+      },
+      guide: {
+        hero: "Halo, ambo Ahmad Al Haykal. Salamaik datang di portofolio ambo. Silakan scroll ka bawah untuak labiah mangenal ambo.",
+        about: "Ambo developer dari Bekasi nan mambangun produk dari kamar. Ambo mamparatikan detail supayo hasilnyo nyaman dipakai jo tarasa masak.",
+        study: "Iko teknologi nan ambo pakai tiok hari. Silakan arahkan kursor atau ketuk ikon untuak mancaliak namonyo.",
+        projects: "Iko proyek unggulan ambo, FUTSALIN — platform booking futsal. Proyek ko masih dalam pangembangan, tapi alur utamonyo alah jalan.",
+        certificate: "Ambo alah manyalasaikan 4 sertifikat di Dicoding. Silakan ketuk kartu untuak mancaliak detail jo verifikasinyo.",
+        contact: "Kok handak tahubung, silakan kirim pesan malalui formulir di bawah atau hubungi ambo di ahmadalhaykal94@gmail.com.",
+        future: "Tarimo kasih alah manjalajahi portofolio ko sampai akhir. Sampai tamiang di proyek barikuiknyo.",
+      },
+    },
     nav: {
       about: "Tentang",
       study: "Kaahlian",
@@ -248,24 +635,36 @@ export const content = {
       certificate: "Sertifikat",
       contact: "Kontak",
       talkBtn: "Hubungi Ambo",
+      menuOpen: "Buka menu",
+      menuClose: "Tutuik menu",
+      languageLabel: "BAHASO",
     },
     future: {
       tag: "Salajengnyo",
       title: "Sampai tamiang di misi barikuiknyo",
+      description: "Dibuek jo perhatian pado detail dan performa. Proyek barikuiknyo sadang disiapkan.",
+      builtWith: "DIBUEK JO",
       rights: "Hak cipta dilindungi.",
     },
     study: {
       tag: "Kaahlian",
       title: "Teknologi nan ambo pakai",
       description: "Tiap kaahlian ditampilkan sabagai planet. Arahkan kursor atau ketuk ikon untuak mancaliak namonyo.",
+      hint: "HOVER / KETUK IKON UNTUAK MANCALIAK NAMO • ORBIT BAJALAN OTOMATIS",
     },
     about: {
       tag: "Tentang Ambo",
       title: "Developer dari Bekasi\nuntuak siapo sajo.",
       description: "Ambo Ahmad Al Haykal, developer dari Bekasi nan mambangun produk dari awal sampai siap dipakai.",
+      openTo: "Tabukak untuak magang & freelance",
+      quote: "Ambo suko mamparatikan detail sampai produk tarasa masak jo nyaman dipakai.",
+      traits: ["Taliti jo detail", "Capek baraja", "Anggota tim nan elok"],
+      globeTagline: "MAMBANGUN UNTUAK DUNIA",
     },
     hero: {
       title: "Halo, ambo Ahmad Al Haykal",
+      subtitle:
+        "Siswa Rekayasa Perangkat Lunak — baraja otodidak manuju Full-stack Developer. Kini fokus di Frontend, alah mancubo Backend pulo.",
       runningText: [
         "Halo, ambo Ahmad Al Haykal.",
         "Ambo maubah ide manjadi produk digital.",
@@ -273,6 +672,19 @@ export const content = {
       ],
       contactBtn: "Hubungi Ambo",
       seeBtn: "Jelajahi",
+      availableBadge: "SIAP UNTUAK KARJO ’26",
+      portfolioBadge: "PORTOFOLIO ’26",
+      techTitle: "TEKNOLOGI UTAMO",
+      projectLabel: "PROYEK — 2026",
+      statFeatured: "proyek\nunggulan",
+      statCertificates: "sertifikat",
+      statSince: "mambangun\nsajak 2026",
+      currentlyBuilding: "SADANG DIGARAP",
+      projectDesc:
+        "Platform booking futsal jo dashboard nan efisien, pamariksoan jadwal real-time, jo pangalaman mobile nan optimal.",
+      nextUp: "Barikuiknyo: poles & deploy.",
+      scrollHint: "SCROLL KA BAWAH ↓",
+      scroll: "SCROLL",
     },
     certificate: {
       tag: "Sertifikat",
@@ -280,6 +692,36 @@ export const content = {
       description: "Kumpulan pembelajaran nan alah ambo salasaiakan.",
       previewText: "Lihat",
       verifyText: "Verifikasi",
+    },
+    projects: {
+      label: "PROYEK UNGGULAN — SADANG DIGARAP",
+      titleLead: "Satu proyek nan ambo kembangkan",
+      titleHighlight: "jo sungguah-sungguah.",
+      description:
+        "Bukan template. Proyek ko dibangun dari awal. Alur intinyo alah jalan dan kini sadang disampurnakan untuak pangalaman mobile nan labiah elok.",
+      liveBadge: "LIVE DI DEV",
+      mockupTitle: "Platform Booking Futsal",
+      inProgress: "SADANG DIGARAP",
+      mockupDesc:
+        "Admin bisa mangaturo lokasi & booking tanpa ribet — klik kartu lokasi → detail, booking punyo tab surang + modal detail/edit.",
+      statLocations: "lokasi demo",
+      statStatus: "status booking",
+      statFav: "toggle favorit",
+      addLocation: "Tambah Lokasi",
+      lastUpdate: "Update tarakhir: modal dipoles & file dipacah supayo rapi",
+      stillBuilding: "MASIH DIBANGUN — MASUKAN DITARIMO",
+      tagline: " — booking futsal, dibuek nan bana.",
+      details:
+        "Tujuannyo supayo pangelolaan dek admin labiah mudah jo pangalaman mobile nan optimal. Dari mangaturo lokasi (kartu bisa diketuk → detail lengkap) sampai booking (tab pisah, search, pagination, detail & edit anti jam bantuik).",
+      features: [
+        "Kelola Lokasi — ketuk kartu untuak mancaliak detail lengkap sarupo foto, deskripsi, jam operasional, jo daftar lapangan.",
+        "Kelola Booking — dipisah dalam tab surang, indak manumpuak di dashboard. Detail jo edit tapisah jo validasi jadwal.",
+        "Fitur favorit di baranda sarato laman detail read-only untuak pangguna. Struktur file dirapikan supayo mudah dikelola.",
+      ],
+      github: "Lihat di GitHub",
+      liveDemo: "Live demo — sabanta lai rilis",
+      note: "Proyek ko masih dalam pangembangan. Masukan jo saran sangaik ambo hargai.",
+      footerNote: "NAK MANGINTIP CODE-NYO? CEK GITHUB DI ATEH — DEPLOY BARIKUIKNYO KOK ALAH MASAK",
     },
     contact: {
       tag: "Kontak",
@@ -295,9 +737,44 @@ export const content = {
       sendingBtn: "Mangirim...",
       successMessage: "Pesan takirim.",
       errorMessage: "Gagal mangirim. Coba lai.",
+      responseLabel: "BALASAN",
+      responseTitle: "Paliang lamo 24 jam",
+      responseDesc: "Biasonyo di hari nan samo (WIB)",
+      locationLabel: "LOKASI",
+      locationDesc: "Remote ka maa sajo, ayo",
+      formTitle: "KIRIM PESAN",
+      commitment: "Ambo bakomitmen mambaleh tiap pesan jo capek.",
     },
   },
+
+  // =========================================================
+  // BALI
+  // =========================================================
   ban: {
+    rocket: {
+      introLabel: "INTRO",
+      hint: "SCROLL MANGDA TITIANG NGUBAH CERITA",
+      intro1: "Titiang jagi ngiringang lelampahan Ragane ring sabilang bagian.",
+      intro2: "Silakan scroll alon-alon mangda prasida nglanturang.",
+      labels: {
+        hero: "BERANDA",
+        about: "INDIK",
+        study: "KEAHLIAN",
+        projects: "PROYEK",
+        certificate: "SERTIFIKAT",
+        contact: "KONTAK",
+        future: "PENUTUP",
+      },
+      guide: {
+        hero: "Om Swastiastu, titiang Ahmad Al Haykal. Rahayu rauh ring portofolio titiang. Silakan scroll ka sor mangda sayan uning titiang.",
+        about: "Titiang developer saking Bekasi sane ngaryanin produk saking kamar. Titiang ngamanahin detail mangda asilnyane nyaman kaanggen lan kerasa matang.",
+        study: "Puniki teknologi sane titiang anggen sabilang rahina. Silakan arahkan kursor utawi ketuk ikon mangda uning wastannyane.",
+        projects: "Puniki proyek unggulan titiang, FUTSALIN — platform booking futsal. Proyek puniki pragati kakembangang, nanging alur utamannyane sampun mamargi.",
+        certificate: "Titiang sampun ngrampungang 4 sertifikat ring Dicoding. Silakan ketuk kartu mangda uning detail lan verifikasinnyane.",
+        contact: "Yening meled masambung, silakan kirim pesan malarapan formulir ring sor utawi hubungi titiang ring ahmadalhaykal94@gmail.com.",
+        future: "Suksma sampun ngajajah portofolio puniki ngantos puput. Kantos matemu ring proyek salanturnyane.",
+      },
+    },
     nav: {
       about: "Indik",
       study: "Keahlian",
@@ -305,24 +782,36 @@ export const content = {
       certificate: "Sertifikat",
       contact: "Kontak",
       talkBtn: "Hubungi Titiang",
+      menuOpen: "Ngukaang menu",
+      menuClose: "Nutup menu",
+      languageLabel: "BASA",
     },
     future: {
       tag: "Salanturnya",
       title: "Kantos matemu ring misi salanturnyane",
+      description: "Kaaryanin sarengin pangenehan ring detail lan performa. Proyek salanturnyane kabaosang sedeng kasiapang.",
+      builtWith: "KAARYANIN SARENGIN",
       rights: "Hak cipta katutup.",
     },
     about: {
       tag: "Indik Titiang",
       title: "Developer saking Bekasi\nanggen sapasira ja.",
       description: "Titiang Ahmad Al Haykal, developer saking Bekasi sane ngaryanin produk saking awal ngantos siap kaanggen.",
+      openTo: "Kabuka anggen magang & freelance",
+      quote: "Titiang demen ngamanahin detail kantos produk kerasa matang lan nyaman kaanggen.",
+      traits: ["Teleb ring detail", "Enteg mlajah", "Anggota tim sane melah"],
+      globeTagline: "NGARYANIN ANGGEN JAGAT",
     },
     study: {
       tag: "Keahlian",
       title: "Teknologi sane kaanggen",
       description: "Sabilang keahlian kacingak pinaka planet. Arahkan kursor utawi ketuk ikon mangda kauningin wastannyane.",
+      hint: "HOVER / KETUK IKON MANGDA KAUNINGIN WASTANNYA • ORBIT MARAGA OTOMATIS",
     },
     hero: {
       title: "Om Swastiastu, titiang Ahmad Al Haykal",
+      subtitle:
+        "Siswa Rekayasa Perangkat Lunak — mlajah otodidak nuju Full-stack Developer. Mangkin fokus ring Frontend, sampun nyobian Backend taler.",
       runningText: [
         "Om Swastiastu, titiang Ahmad Al Haykal.",
         "Titiang ngubah ide dados produk digital.",
@@ -330,6 +819,19 @@ export const content = {
       ],
       contactBtn: "Hubungi Titiang",
       seeBtn: "Jelajahi",
+      availableBadge: "SIAP ANGGEN KARYA ’26",
+      portfolioBadge: "PORTOFOLIO ’26",
+      techTitle: "TEKNOLOGI UTAMA",
+      projectLabel: "PROYEK — 2026",
+      statFeatured: "proyek\nunggulan",
+      statCertificates: "sertifikat",
+      statSince: "ngaryanin\nsaking 2026",
+      currentlyBuilding: "SEDENG KAGARAP",
+      projectDesc:
+        "Platform booking futsal sarengin dashboard sane efisien, pemeriksaan jadwal real-time, lan pengalaman mobile sane optimal.",
+      nextUp: "Salanturnyane: poles & deploy.",
+      scrollHint: "SCROLL ANTUK ↓",
+      scroll: "SCROLL",
     },
     certificate: {
       tag: "Sertifikat",
@@ -337,6 +839,36 @@ export const content = {
       description: "Pupulan paplajahan sane sampun puput.",
       previewText: "Cingak",
       verifyText: "Verifikasi",
+    },
+    projects: {
+      label: "PROYEK UNGGULAN — SEDENG KAGARAP",
+      titleLead: "Asiki proyek sane titiang kembangang",
+      titleHighlight: "sarengin sungguh-sungguh.",
+      description:
+        "Nenten template. Proyek puniki kaaryanin saking awal. Alur intinyane sampun mamargi lan mangkin sedeng kasampurnayang anggen pengalaman mobile sane langkung melah.",
+      liveBadge: "LIVE RING DEV",
+      mockupTitle: "Platform Booking Futsal",
+      inProgress: "SEDENG KAGARAP",
+      mockupDesc:
+        "Admin prasida ngaturang lokasi & booking tanpa ribet — klik kartu lokasi → detail, booking madue tab surang + modal detail/edit.",
+      statLocations: "lokasi demo",
+      statStatus: "status booking",
+      statFav: "toggle favorit",
+      addLocation: "Tambah Lokasi",
+      lastUpdate: "Update pamuput: modal kapoles & file kapecah mangda rapi",
+      stillBuilding: "PRAGATI KAARYANIN — SARAN KATERIMA",
+      tagline: " — booking futsal, kaaryanin sane patut.",
+      details:
+        "Tetujonnyane mangda pangelolaan olih admin langkung mudah sarengin pengalaman mobile sane optimal. Saking ngaturang lokasi (kartu prasida kaketuk → detail lengkap) kantos booking (tab pasah, search, pagination, detail & edit sane nyegah jam bentrok).",
+      features: [
+        "Kelola Lokasi — ketuk kartu mangda uning detail lengkap sekadi foto, katrangan, jam operasional, lan daftar lapangan.",
+        "Kelola Booking — kapasah ring tab surang, nenten numpuk ring dashboard. Detail lan edit pasah sarengin validasi jadwal.",
+        "Fitur favorit ring beranda sarta kaca detail read-only anggen pangguna. Struktur file karapiang mangda mudah kakelola.",
+      ],
+      github: "Cingak ring GitHub",
+      liveDemo: "Live demo — sakeng malih rilis",
+      note: "Proyek puniki pragati kakembangang. Saran lan pamargi sanget kahargain.",
+      footerNote: "MELED NGINTIP CODE-NYA? CEK GITHUB RING DUUR — DEPLOY SALANTURNYA RING SAMPUN MATANG",
     },
     contact: {
       tag: "Kontak",
@@ -352,6 +884,13 @@ export const content = {
       sendingBtn: "Ngirim...",
       successMessage: "Pesan terkirim.",
       errorMessage: "Gagal ngirim. Coba malih.",
+      responseLabel: "PEWALIAN",
+      responseTitle: "Pinih dabdab 24 jam",
+      responseDesc: "Biasanyane ring rahina sane pateh (WIB)",
+      locationLabel: "LOKASI",
+      locationDesc: "Remote ka dija ja, ngiring",
+      formTitle: "KIRIM PESAN",
+      commitment: "Titiang janji nyawis sabilang pesan sane pasuang.",
     },
   },
 };

@@ -17,7 +17,7 @@ export default function Navbar() {
   const NAV_ITEMS = [
     { label: t.nav.about, href: "#about" },
     { label: t.nav.study, href: "#study" },
-    { label: ((t.nav as unknown) as { projects: string }).projects ?? "Projects", href: "#projects" },
+    { label: t.nav.projects, href: "#projects" },
     { label: t.nav.certificate, href: "#certificate" },
     { label: t.nav.contact, href: "#contact" },
   ];
@@ -140,7 +140,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
-            aria-label={mobileOpen ? "Tutup menu" : "Buka menu"}
+            aria-label={mobileOpen ? t.nav.menuClose : t.nav.menuOpen}
             aria-expanded={mobileOpen}
             className="sm:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-slate-200"
           >
@@ -171,7 +171,7 @@ export default function Navbar() {
               </div>
 
               <div className="mt-3 border-t border-white/10 pt-3">
-                <p className="px-2 text-[10px] font-mono tracking-[0.16em] text-slate-500">LANGUAGE</p>
+                <p className="px-2 text-[10px] font-mono tracking-[0.16em] text-slate-500">{t.nav.languageLabel}</p>
                 <div className="mt-2 grid grid-cols-3 gap-1.5">
                   {languages.map((item) => (
                     <button

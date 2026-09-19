@@ -70,7 +70,7 @@ export default function ContactSection() {
           className="flex items-center gap-3"
         >
           <span className="h-px w-8 bg-white/15" />
-          <span className="text-[11px] font-mono tracking-[0.2em] text-slate-400">04 — CONTACT</span>
+          <span className="text-[11px] font-mono tracking-[0.2em] text-slate-400">04 — {t.contact.tag.toUpperCase()}</span>
           <span className="h-px flex-1 max-w-[220px] bg-white/10 hidden sm:block" />
         </motion.div>
 
@@ -105,17 +105,17 @@ export default function ContactSection() {
             >
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <div className="flex items-center gap-2 text-[11px] font-mono tracking-widest text-slate-400">
-                  <Clock size={12} /> RESPON
+                  <Clock size={12} /> {t.contact.responseLabel}
                 </div>
-                <p className="mt-2 text-sm font-semibold text-white">Paling 24 jam</p>
-                <p className="text-xs text-slate-400">Biasanya di hari yang sama (WIB)</p>
+                <p className="mt-2 text-sm font-semibold text-white">{t.contact.responseTitle}</p>
+                <p className="text-xs text-slate-400">{t.contact.responseDesc}</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <div className="flex items-center gap-2 text-[11px] font-mono tracking-widest text-slate-400">
-                  <MapPin size={12} /> LOKASI
+                  <MapPin size={12} /> {t.contact.locationLabel}
                 </div>
                 <p className="mt-2 text-sm font-semibold text-white">Bekasi, ID</p>
-                <p className="text-xs text-slate-400">Remote kemana aja gas</p>
+                <p className="text-xs text-slate-400">{t.contact.locationDesc}</p>
               </div>
             </motion.div>
 
@@ -156,7 +156,7 @@ export default function ContactSection() {
             className="rounded-[22px] border border-white/10 bg-[#0B1220]/70 backdrop-blur p-5 sm:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
           >
             <div className="flex items-center justify-between">
-              <p className="text-[11px] font-mono tracking-[0.16em] text-slate-400">KIRIM PESAN</p>
+              <p className="text-[11px] font-mono tracking-[0.16em] text-slate-400">{t.contact.formTitle}</p>
               <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)] animate-pulse" />
             </div>
 
@@ -217,7 +217,7 @@ export default function ContactSection() {
                 <p className="text-xs text-rose-400 text-center font-mono">{t.contact.errorMessage}</p>
               )}
               <p className="text-center text-[11px] font-mono tracking-wide text-slate-500">
-                Saya berkomitmen untuk membalas setiap pesan dengan segera.
+                {t.contact.commitment}
               </p>
             </form>
           </motion.div>

@@ -2,10 +2,10 @@
 
 import dynamic from "next/dynamic";
 import { useRef, useEffect, useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import StarField from "./angkasa/startField";
 import { WebGLErrorBoundary } from "./WebGLErrorBoundary";
+import ProfileCard3D from "@/components/animasi/profilecard";
 import { useLanguage } from "@/app/data/LanguageContext";
 
 const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
@@ -18,7 +18,7 @@ const MY_LOCATION = {
 
 export default function AboutSection() {
   const { t } = useLanguage();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  
   const globeRef = useRef<any>(null);
   const globeWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -104,7 +104,7 @@ export default function AboutSection() {
         >
           <span className="h-px w-8 bg-white/15" />
           <span className="text-[11px] font-mono tracking-[0.2em] text-slate-400">
-            01 — ABOUT
+            01 — {t.about.tag.toUpperCase()}
           </span>
           <span className="h-px flex-1 max-w-[220px] bg-white/10 hidden sm:block" />
         </motion.div>
@@ -146,7 +146,7 @@ export default function AboutSection() {
                 Software Engineering
               </span>
               <span className="inline-flex items-center gap-2 rounded-full bg-white text-black px-3.5 py-2 text-xs font-semibold">
-                Terbuka untuk magang & freelance
+                {t.about.openTo}
               </span>
             </motion.div>
 
@@ -158,29 +158,14 @@ export default function AboutSection() {
               transition={{ delay: 0.18, duration: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 items-center sm:items-start"
             >
-              <div className="relative w-[72vw] max-w-[260px] aspect-[188/242] sm:w-[188px] sm:h-[242px] sm:aspect-auto sm:max-w-none rounded-[18px] overflow-hidden border border-white/10 bg-[#0B1220] shadow-[0_20px_60px_rgba(0,0,0,0.45)] shrink-0 mx-auto sm:mx-0">
-                <Image
-                  src="/images/profile.jpg"
-                  alt="Ahmad Al Haykal"
-                  fill
-                  priority
-                  sizes="(max-width: 640px) 72vw, 188px"
-                  className="object-cover object-top"
-                />
-                <div className="pointer-events-none absolute inset-0 opacity-[0.08] mix-blend-soft-light [background-image:radial-gradient(rgba(255,255,255,0.9)_0.8px,transparent_0.8px)] [background-size:14px_14px]" />
-                <div className="absolute bottom-0 inset-x-0 h-[42%] bg-gradient-to-t from-black/55 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                  <span className="text-[10px] font-mono tracking-widest text-white/80">HAYKAL — ’26</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
-                </div>
-              </div>
+              <ProfileCard3D />
 
               <div className="w-full sm:max-w-[260px] pt-1 text-center sm:text-left">
                 <p className="text-xs leading-relaxed text-slate-400">
-                  Saya senang memperhatikan detail hingga produk terasa matang dan nyaman digunakan.
+                  {t.about.quote}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-1.5 justify-center sm:justify-start">
-                  {["Detail-oriented", "Fast learner", "Team player"].map((x) => (
+                  {t.about.traits.map((x) => (
                     <span key={x} className="text-[10px] tracking-wide px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">
                       {x}
                     </span>
@@ -241,7 +226,7 @@ export default function AboutSection() {
               )}
             </div>
             <p className="mt-3 text-[11px] font-mono tracking-widest text-slate-500 text-center lg:text-right">
-              BEKASI — 6.2°S 106.8°E • BUILDING FOR THE WORLD
+              BEKASI — 6.2°S 106.8°E • {t.about.globeTagline}
             </p>
           </motion.div>
         </div>

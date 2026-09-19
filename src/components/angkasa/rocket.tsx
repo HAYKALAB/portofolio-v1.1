@@ -3,33 +3,26 @@
 
 import { useRef, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useLanguage } from "@/app/data/LanguageContext";
 
 const SECTION_ORDER = ["hero", "about", "study", "projects", "certificate", "contact", "future"] as const;
 
 type SectionId = (typeof SECTION_ORDER)[number];
 
-const GUIDE: Record<SectionId, string> = {
-  hero: "Halo, saya Ahmad Al Haykal. Selamat datang di portofolio saya. Silakan scroll ke bawah untuk mengenal saya lebih dekat.",
-  about:
-    "Saya developer dari Bekasi yang membangun produk dari kamar. Saya memperhatikan detail agar hasilnya nyaman digunakan dan terasa matang.",
-  study:
-    "Ini adalah teknologi yang saya gunakan sehari-hari. Silakan arahkan kursor atau ketuk ikon untuk melihat namanya.",
-  projects:
-    "Ini adalah proyek unggulan saya, FUTSALIN — platform booking futsal. Proyek ini masih dalam pengembangan, namun alur utamanya sudah berjalan.",
-  certificate:
-    "Saya telah menyelesaikan 4 sertifikat di Dicoding. Silakan ketuk kartu untuk melihat detail dan verifikasinya.",
-  contact:
-    "Jika ingin terhubung, silakan kirim pesan melalui formulir di bawah atau hubungi saya di ahmadalhaykal94@gmail.com.",
-  future: "Terima kasih telah menjelajahi portofolio ini sampai akhir. Sampai jumpa di proyek selanjutnya.",
-};
+// jumlah bubble intro (guide.hero + intro1 + intro2)
+const INTRO_COUNT = 3;
 
-const INTRO: string[] = [
-  GUIDE.hero,
-  "Saya akan menemani perjalanan Anda di setiap bagian.",
-  "Silakan scroll perlahan untuk melanjutkan.",
-];
+// kecepatan ngetik (ms per huruf) dan jeda baca setelah teks selesai diketik (ms)
+const TYPE_SPEED = 28;
+const READ_PAUSE = 2200;
+
+// textKey: "intro:0" | "intro:1" | "intro:2" | id section
+// disimpan sebagai key (bukan teks) supaya otomatis ikut berubah kalau bahasa diganti
+type TextKey = `intro:${number}` | SectionId;
 
 export default function RocketGuide() {
+  const { t } = useLanguage();
+
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const rocketSvgRef = useRef<HTMLDivElement>(null);
@@ -39,9 +32,15 @@ export default function RocketGuide() {
   const activeRef = useRef<SectionId>("hero");
 
   // typing state
-  const [targetText, setTargetText] = useState<string>(INTRO[0]);
+  const [textKey, setTextKey] = useState<TextKey>("intro:0");
   const [typed, setTyped] = useState<string>("");
   const [showBubble, setShowBubble] = useState<boolean>(true);
+
+  // teks yang lagi dituju, diambil dari file bahasa sesuai bahasa aktif
+  const introTexts = [t.rocket.guide.hero, t.rocket.intro1, t.rocket.intro2];
+  const targetText = textKey.startsWith("intro:")
+    ? introTexts[Number(textKey.slice(6))]
+    : t.rocket.guide[textKey as SectionId];
 
   // intro vs guide phase
   const [introIndex, setIntroIndex] = useState(0);
@@ -96,7 +95,7 @@ export default function RocketGuide() {
         };
       }
     }
-    const t = setTimeout(computeMoonTarget, 400);
+    const timer = setTimeout(computeMoonTarget, 400);
     window.addEventListener("resize", computeMoonTarget);
     window.addEventListener("load", computeMoonTarget);
     // also recompute on scroll because layout shifts after images
@@ -110,7 +109,7 @@ export default function RocketGuide() {
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
-      clearTimeout(t);
+      clearTimeout(timer);
       window.removeEventListener("resize", computeMoonTarget);
       window.removeEventListener("load", computeMoonTarget);
       window.removeEventListener("scroll", onScroll);
@@ -144,7 +143,7 @@ export default function RocketGuide() {
             activeRef.current = best.id;
             setActive(best.id);
             if (phaseRef.current !== "TALKING") {
-              setTargetText(GUIDE[best.id]);
+              setTextKey(best.id);
               setShowBubble(true);
             }
           }
@@ -175,14 +174,18 @@ export default function RocketGuide() {
   }, [mounted]);
 
   // intro sequence — 3 bubble di hero sebelum terbang
+  // durasi tiap bubble = waktu ngetik (sesuai panjang teks) + jeda baca,
+  // jadi teks panjang tidak terpotong sebelum selesai diketik
+  const introText = introTexts[introIndex] ?? "";
+
   useEffect(() => {
     if (phase !== "TALKING") return;
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTargetText(INTRO[introIndex]);
+    setTextKey(`intro:${introIndex}`);
     setShowBubble(true);
 
-    const t = setTimeout(() => {
-      if (introIndex < INTRO.length - 1) {
+    const timer = setTimeout(() => {
+      if (introIndex < INTRO_COUNT - 1) {
         // blink out lalu ganti
         setShowBubble(false);
         setTimeout(() => {
@@ -196,25 +199,24 @@ export default function RocketGuide() {
           setPhase("FLYING");
           setIntroDone(true);
           // langsung set ke section yang lagi aktif (biasanya hero/about)
-          setTargetText(GUIDE[activeRef.current]);
+          setTextKey(activeRef.current);
           setShowBubble(true);
           targetAngle.current = 180;
         }, 300);
       }
-    }, 2200);
+    }, introText.length * TYPE_SPEED + READ_PAUSE);
 
-    return () => clearTimeout(t);
-  }, [phase, introIndex]);
+    return () => clearTimeout(timer);
+  }, [phase, introIndex, introText]);
 
-  // kalau active ganti setelah terbang, targetText sudah di-set di observer
-  // typing effect — ketik per huruf
+  // typing effect — ketik per huruf (ulang otomatis kalau bahasa berubah)
   useEffect(() => {
     let i = 0;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setTyped("");
     if (!showBubble) return;
     const text = targetText;
-    const speed = 22; // ms per huruf — kerasa ngetik
+    const speed = TYPE_SPEED;
     const id = window.setInterval(() => {
       i += 1;
       setTyped(text.slice(0, i));
@@ -259,7 +261,7 @@ export default function RocketGuide() {
           phaseRef.current = "LANDED";
           setPhase("LANDED");
           // pas mendarat, paksa bubble future
-          setTargetText(GUIDE.future);
+          setTextKey("future");
           setShowBubble(true);
         }
       }
@@ -306,7 +308,7 @@ export default function RocketGuide() {
           {/* header kecil */}
           <div className="flex items-center justify-between gap-2">
             <span className="text-[10px] font-mono tracking-[0.16em] text-sky-300">
-              {introDone ? active.toUpperCase() : `INTRO ${introIndex + 1}/3`}
+              {introDone ? t.rocket.labels[active] : `${t.rocket.introLabel} ${introIndex + 1}/${INTRO_COUNT}`}
             </span>
             <span className="text-[10px] font-mono text-slate-500">
               {SECTION_ORDER.indexOf(active) + 1}/{SECTION_ORDER.length}
@@ -328,7 +330,7 @@ export default function RocketGuide() {
         {/* tap hint kecil — desktop only */}
         {introDone && !landed && (
           <span className="mt-1 hidden sm:block text-[10px] font-mono tracking-widest text-slate-500/80">
-            SCROLL BIAR AKU GANTI CERITA
+            {t.rocket.hint}
           </span>
         )}
       </div>
